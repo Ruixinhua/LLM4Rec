@@ -5,6 +5,7 @@ import openai
 from tqdm import tqdm
 from common import (
     chat,
+    load_api_key,
     load_cmd_line,
     compute_recommendation_metrics_row,
     compute_recommendation_metrics,
@@ -13,8 +14,7 @@ from one_shot_example import one_shot
 
 
 if __name__ == "__main__":
-    api_key = "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"
-    openai.api_key = api_key
+    openai.api_key = load_api_key()
     args = load_cmd_line()
     model_name = args.get("model_name", "gpt-3.5-turbo")
     sample_num = args.get("sample_num", 1000)

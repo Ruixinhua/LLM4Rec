@@ -3,6 +3,7 @@ import sys
 import openai
 import time
 import numpy as np
+import json
 
 from logging import getLogger
 from enum import Enum
@@ -236,3 +237,7 @@ def compute_mrr_for_row(labels, predictions):
         if item in labels:
             return 1.0 / index
     return 0
+
+
+def load_api_key(json_path="openai_key.json"):
+    return json.load(open(json_path))["api_key"]
