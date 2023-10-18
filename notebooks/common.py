@@ -4,6 +4,7 @@ import openai
 import time
 import numpy as np
 import json
+import google.generativeai as palm
 
 from logging import getLogger
 from enum import Enum
@@ -79,18 +80,29 @@ def load_cmd_line():
     return cmd_config_dict
 
 
-def chat(messages, model="gpt-3.5-turbo", max_try=5, **model_params):
+def chat(prompt, model="gpt-3.5-turbo", max_try=5, **model_params):
     """Set up the Openai API key using openai.api_key = api_key"""
     try:
-        chat_completion = openai.ChatCompletion.create(
-            model=model, messages=messages, **model_params
-        )
-        content = chat_completion.choices[0].message["content"]
+        if "gpt" in model.lower():
+            chat_completion = openai.ChatCompletion.create(
+                model=model, messages=[{"role": "user", "content": prompt}], **model_params
+            )
+            content = chat_completion.choices[0].message["content"]
+        else:
+            content = palm.chat(prompt=[prompt], model=model).last
+        if content is None:
+            if max_try > 0:
+                time.sleep(max_try)
+                content = chat(prompt, model, max_try - 1)
+            else:
+                return content
+        else:
+            content = ""
         return content
     except:
         if max_try > 0:
-            time.sleep(1)
-            return chat(messages, model, max_try - 1)
+            time.sleep(20)
+            return chat(prompt, model, max_try - 1)
         else:
             raise Exception("Max try exceeded")
 
@@ -116,127 +128,43 @@ def get_history_candidate_prompt(news_df, behavior):
     )
 
 
-def dcg_at_k(r, k):
-    """Compute DCG@k for a single sample.
-    Args:
-    r: list of relevance scores in the order they were ranked
-    k: number of results to consider
-    Returns:
-    DCG@k
+def calculate_metrics(true_pos, rank_hat):
     """
-    r = np.asfarray(r)[:k]
-    return np.sum(r / np.log2(np.arange(2, r.size + 2)))
-
-
-def ndcg_at_k(r, k):
-    """Compute nDCG@k for a single sample.
-    Args:
-    r: list of relevance scores in the order they were ranked
-    k: number of results to consider
-    Returns:
-    nDCG@k
+    true_pos: pos item ['C1', 'C3', 'C5']
+    rank_hat: ranking list ['C2', 'C5', 'C1', 'C3', 'C4']
+    return: auc, mrr, ndcg5, ndcg10
     """
-    dcg_max = dcg_at_k(sorted(r, reverse=True), k)
-    if not dcg_max:
-        return 0.0
-    return dcg_at_k(r, k) / dcg_max
 
+    # Get the ranks of the true positives in rank_hat
+    ranks = [rank_hat.index(item) + 1 if item in rank_hat else len(rank_hat) + 1 for item in true_pos]
 
-def compute_mrr(gt_list, pred_list):
-    """Compute MRR (Mean Reciprocal Rank).
-    Args:
-    gt_list: list of ground truth labels
-    pred_list: list of predicted labels
-    Returns:
-    MRR
-    """
-    mrr = 0.0
-    for gt, preds in zip(gt_list, pred_list):
-        for i, p in enumerate(preds):
-            if p in gt:
-                mrr += 1.0 / (i + 1)
-                break
-    return mrr / len(gt_list)
+    # AUC calculation
+    num_negatives = len(rank_hat) - len(true_pos)
+    num_better_ranks = sum([r for r in ranks if r <= len(rank_hat)])
+    auc = (num_better_ranks - len(true_pos) * (len(true_pos) + 1) / 2) / (len(true_pos) * num_negatives)
+    # MRR calculation
+    mrr = 0
+    for rank in ranks:
+        if rank <= len(rank_hat):
+            mrr += 1.0 / rank
+    mrr /= len(true_pos)
 
+    # DCG and NDCG calculation
+    def dcg_at_k(r, k):
+        r = np.asarray(r)[:k]
+        return np.sum(r / np.log2(np.arange(2, r.size + 2)))
 
-def compute_recommendation_metrics(input_data, label_col, prediction_col):
-    """
-    Compute mean nDCG@k and MRR for recommendation tasks.
+    def ndcg_at_k(r, k, method=0):
+        dcg_max = dcg_at_k(sorted(r, reverse=True), k)
+        if not dcg_max:
+            return 0.
+        return dcg_at_k(r, k) / dcg_max
 
-    Parameters:
-    - input_data: dataframe containing the data
-    - label_col: column name containing the true labels
-    - prediction_col: column name containing the predicted recommendations
+    binary_relevance = [1 if i in true_pos else 0 for i in rank_hat]
+    ndcg5 = ndcg_at_k(binary_relevance, 5)
+    ndcg10 = ndcg_at_k(binary_relevance, 10)
 
-    Returns:
-    - mean_ndcg5_at_k: mean nDCG@5
-    - mean_ndcg10_at_k: mean nDCG@10
-    - mean_mrr: mean MRR
-    """
-    # Process input columns
-    input_data = input_data.copy()
-    input_data[label_col] = input_data[label_col].str.split(",")
-    input_data[prediction_col] = input_data[prediction_col].str.split(",")
-
-    # Compute relevance scores for nDCG@k
-    input_data["relevance"] = input_data.apply(
-        lambda row: [
-            1 if item in row[label_col] else 0 for item in row[prediction_col]
-        ],
-        axis=1,
-    )
-
-    # Calculate nDCG@k values
-    ndcg5_values = input_data["relevance"].apply(lambda x: ndcg_at_k(x, 5))
-    ndcg10_values = input_data["relevance"].apply(lambda x: ndcg_at_k(x, 10))
-    mean_ndcg5_at_k = np.mean(ndcg5_values)
-    mean_ndcg10_at_k = np.mean(ndcg10_values)
-
-    # Calculate MRR
-    mean_mrr = compute_mrr(
-        input_data[label_col].tolist(), input_data[prediction_col].tolist()
-    )
-
-    return mean_ndcg5_at_k, mean_ndcg10_at_k, mean_mrr
-
-
-def compute_recommendation_metrics_row(row, label_col, prediction_col):
-    """
-    Compute nDCG@k and MRR for a single row in recommendation tasks.
-
-    Parameters:
-    - row: a single row from a dataframe containing the data
-    - label_col: column name containing the true labels
-    - prediction_col: column name containing the predicted recommendations
-
-    Returns:
-    - ndcg5_at_k: nDCG@5 for the row
-    - ndcg10_at_k: nDCG@10 for the row
-    - mrr: MRR for the row
-    """
-    # Process input columns
-    labels = row[label_col].split(",")
-    predictions = row[prediction_col].split(",")
-
-    # Compute relevance scores for nDCG@k
-    relevance = [1 if item in labels else 0 for item in predictions]
-
-    # Calculate nDCG@k values
-    ndcg5_at_k = ndcg_at_k(relevance, 5)
-    ndcg10_at_k = ndcg_at_k(relevance, 10)
-
-    # Calculate MRR
-    mrr = compute_mrr_for_row(labels, predictions)
-
-    return ndcg5_at_k, ndcg10_at_k, mrr
-
-
-# Helper function to compute MRR for a single row
-def compute_mrr_for_row(labels, predictions):
-    for index, item in enumerate(predictions, 1):
-        if item in labels:
-            return 1.0 / index
-    return 0
+    return auc, mrr, ndcg5, ndcg10
 
 
 def load_api_key(json_path="openai_key.json"):
