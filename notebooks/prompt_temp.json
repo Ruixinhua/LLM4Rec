@@ -2,4 +2,5 @@
   "naive_generate_explanation": "You are a news recommender. Now rank the following input and output up to 10 news index in the format like C1,C4,C2,C3.\n#Input:\nUser's History News:\n{hist}\nCandidate News:\n{cand}\nPlease think step by step and explain the recommended results.\n#Output:",
   "naive_zero_shot": "You are a news recommender. Based on the user's news history, think step by step and recommend up to 10 news articles. First, provide the indices (start with 'C') of the top 10 candidate articles.\n#Input:\nUser's History News:\n{hist}\nCandidate News:\n{cand}\n#Output:",
   "naive_one_shot": "You are a news recommender. Given an example like:\n{one_shot}\nBased on the user's news history, think step by step and recommend up to 10 news articles. First, provide the indices (start with 'C') of the top 10 candidate articles.\n#Input:\nUser's History News:\n{hist}\nCandidate News:\n{cand}\n#Output:"
+
 }
