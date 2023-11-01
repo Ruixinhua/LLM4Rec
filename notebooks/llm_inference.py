@@ -14,7 +14,7 @@ from utils import evaluate_performance
 
 if __name__ == "__main__":
     args = load_cmd_line()
-    cache_dir = Path(args.get("cache_dir", None))
+    cache_dir = args.get("cache_dir", None)
     sample_num = args.get("sample_num", 1000)
     sampled_df = pd.read_csv(f"sampled_{sample_num}.csv")
     temp_name = args.get("prompt_temp", "naive_zero_shot")
@@ -41,6 +41,11 @@ if __name__ == "__main__":
         torch_dtype=torch.float16 if args.get("fp16", False) else "auto",
     )
     print(f"Loading Device: {model.device}")
+    os.makedirs("generated_data", exist_ok=True)
+    os.makedirs("result", exist_ok=True)
+    # metric_cols = ["AUC", "MRR", "nDCG@5", "nDCG@10"]
+    # "ndcg5", "ndcg10", "mrr"
+    metric_cols = ["nDCG@5", "nDCG@10", "MRR"]
     failed_imp = []
     performance = []
     for index in tqdm(sampled_df.index, total=len(sampled_df)):
@@ -49,43 +54,48 @@ if __name__ == "__main__":
             full_prompt = prompt_temp.format(one_shot=one_shot, hist=hist, cand=cand)
         else:
             full_prompt = prompt_temp.format(hist=hist, cand=cand)
-        try:
-            inputs = tokenizer(full_prompt, return_tensors="pt")
-            start = time.time()
-            torch.cuda.empty_cache()
-            generate_ids = model.generate(
-                inputs.input_ids,
-                max_length=1800,
-                max_new_tokens=args.get("max_new_tokens", 40),
-            )
-            output = tokenizer.batch_decode(
-                generate_ids,
-                skip_special_tokens=True,
-                clean_up_tokenization_spaces=False,
-            )[0][len(full_prompt):]
-            sampled_df.loc[index, "prediction"] = ",".join(re.findall(r"C\d+", output))
-            sampled_df.loc[index, model_name] = output
-            result = list(evaluate_one(label.split(","), output.split(",")))
-            # ndcg5_at_k, ndcg10_at_k, mrr
-            sampled_df.loc[index, ["ndcg5", "ndcg10", "mrr"]] = result
-            sampled_df.to_csv(
-                f"generated_data/sampled_{suffix}.csv",
-                index=False,
-            )
-            performance.append([sampled_df.loc[index, "impression_id"]] + result)
-            performance_df = evaluate_performance(performance)
-            sampled_df[~sampled_df["impression_id"].isin(failed_imp)].to_csv(
-                f"generated_data/sampled_{suffix}.csv", index=False
-            )
-            performance_df.to_csv(
-                f"result/sampled_{suffix}.csv",
-                index=False,
-            )
-        except:
-            sampled_df.loc[index, model_name] = ""
-            failed_imp.append(sampled_df.loc[index, "impression_id"])
-            sampled_df[sampled_df["impression_id"].isin(failed_imp)].to_csv(
-                f"generated_data/sampled_{suffix}_failed.csv",
-                index=False,
-            )
-            continue
+
+        inputs = tokenizer(full_prompt, return_tensors="pt")
+        start = time.time()
+        torch.cuda.empty_cache()
+        input_ids = inputs.input_ids.to(model.device)
+        generate_ids = model.generate(
+            input_ids,
+            max_length=1800,
+            max_new_tokens=args.get("max_new_tokens", 40),
+        )
+        # output = tokenizer.batch_decode(
+        #     generate_ids,
+        #     skip_special_tokens=True,
+        #     clean_up_tokenization_spaces=False,
+        # )[0][len(full_prompt):]
+        # try:
+        #     sampled_df.loc[index, "prediction"] = ",".join(re.findall(r"C\d+", output))
+        #     sampled_df.loc[index, model_name] = output
+        #     # result = list(calculate_metrics(label.split(","), output.split(",")))
+        #     # auc, mrr, ndcg5_at_k, ndcg10_at_k
+        #     result = list(evaluate_one(label.split(","), sampled_df.loc[index, "prediction"].split(",")))
+        #     # ndcg5_at_k, ndcg10_at_k, mrr
+        #     sampled_df.loc[index, metric_cols] = result
+        #     sampled_df.to_csv(
+        #         f"generated_data/sampled_{suffix}.csv",
+        #         index=False,
+        #     )
+        # except Exception as e:
+        #     print(e)
+        #     sampled_df.loc[index, model_name] = ""
+        #     failed_imp.append(sampled_df.loc[index, "impression_id"])
+        #     sampled_df[sampled_df["impression_id"].isin(failed_imp)].to_csv(
+        #         f"generated_data/sampled_{suffix}_failed.csv",
+        #         index=False,
+        #     )
+        #     continue
+        # performance.append([sampled_df.loc[index, "impression_id"]] + result)
+        # performance_df = evaluate_performance(performance, metric_cols=metric_cols)
+        # sampled_df[~sampled_df["impression_id"].isin(failed_imp)].to_csv(
+        #     f"generated_data/sampled_{suffix}.csv", index=False
+        # )
+        # performance_df.to_csv(
+        #     f"result/sampled_{suffix}.csv",
+        #     index=False,
+        # )

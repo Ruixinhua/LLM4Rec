@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import time
 import google.generativeai as palm
 import pandas as pd
 
@@ -17,6 +18,7 @@ if __name__ == "__main__":
     temp_name = args.get("prompt_temp", "naive_zero_shot")
     prompt_temp = json.load(open("prompt_temp.json", "r"))[temp_name]
     sampled_df = pd.read_csv(f"sampled_{sample_num}.csv")
+    metric_cols = ["nDCG@5", "nDCG@10", "MRR"]
     max_num = min(args.get("max_num", 10), len(sampled_df))  # only request 10 samples by default
     suffix = f"{max_num}_palm_{temp_name}"
     os.makedirs("generated_data", exist_ok=True)
@@ -39,11 +41,12 @@ if __name__ == "__main__":
         sampled_df.loc[index, "palm"] = output
         result = list(evaluate_one(label.split(","), sampled_df.loc[index, "prediction"].split(",")))
         # ndcg5_at_k, ndcg10_at_k, mrr
-        sampled_df.loc[index, ["ndcg5", "ndcg10", "mrr"]] = result
+        sampled_df.loc[index, metric_cols] = result
         performance.append([sampled_df.loc[index, "impression_id"]] + result)
-        performance_df = evaluate_performance(performance)
+        performance_df = evaluate_performance(performance, metric_cols=metric_cols)
         sampled_df.to_csv(f"generated_data/sampled_{suffix}.csv", index=False)
         performance_df.to_csv(
             f"result/sampled_{suffix}.csv",
             index=False,
         )
+        time.sleep(20)
