@@ -4,7 +4,6 @@ import openai
 import time
 import numpy as np
 import json
-import google.generativeai as palm
 
 from logging import getLogger
 from enum import Enum
@@ -89,6 +88,7 @@ def chat(prompt, model="gpt-3.5-turbo", max_try=5, **model_params):
             )
             content = chat_completion.choices[0].message["content"]
         else:
+            import google.generativeai as palm
             content = palm.chat(prompt=[prompt], model=model).last
         if content is None:
             if max_try > 0:

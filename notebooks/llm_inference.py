@@ -64,38 +64,38 @@ if __name__ == "__main__":
             max_length=1800,
             max_new_tokens=args.get("max_new_tokens", 40),
         )
-        # output = tokenizer.batch_decode(
-        #     generate_ids,
-        #     skip_special_tokens=True,
-        #     clean_up_tokenization_spaces=False,
-        # )[0][len(full_prompt):]
-        # try:
-        #     sampled_df.loc[index, "prediction"] = ",".join(re.findall(r"C\d+", output))
-        #     sampled_df.loc[index, model_name] = output
-        #     # result = list(calculate_metrics(label.split(","), output.split(",")))
-        #     # auc, mrr, ndcg5_at_k, ndcg10_at_k
-        #     result = list(evaluate_one(label.split(","), sampled_df.loc[index, "prediction"].split(",")))
-        #     # ndcg5_at_k, ndcg10_at_k, mrr
-        #     sampled_df.loc[index, metric_cols] = result
-        #     sampled_df.to_csv(
-        #         f"generated_data/sampled_{suffix}.csv",
-        #         index=False,
-        #     )
-        # except Exception as e:
-        #     print(e)
-        #     sampled_df.loc[index, model_name] = ""
-        #     failed_imp.append(sampled_df.loc[index, "impression_id"])
-        #     sampled_df[sampled_df["impression_id"].isin(failed_imp)].to_csv(
-        #         f"generated_data/sampled_{suffix}_failed.csv",
-        #         index=False,
-        #     )
-        #     continue
-        # performance.append([sampled_df.loc[index, "impression_id"]] + result)
-        # performance_df = evaluate_performance(performance, metric_cols=metric_cols)
-        # sampled_df[~sampled_df["impression_id"].isin(failed_imp)].to_csv(
-        #     f"generated_data/sampled_{suffix}.csv", index=False
-        # )
-        # performance_df.to_csv(
-        #     f"result/sampled_{suffix}.csv",
-        #     index=False,
-        # )
+        output = tokenizer.batch_decode(
+            generate_ids,
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=False,
+        )[0][len(full_prompt):]
+        try:
+            sampled_df.loc[index, "prediction"] = ",".join(re.findall(r"C\d+", output))
+            sampled_df.loc[index, model_name] = output
+            # result = list(calculate_metrics(label.split(","), output.split(",")))
+            # auc, mrr, ndcg5_at_k, ndcg10_at_k
+            result = list(evaluate_one(label.split(","), sampled_df.loc[index, "prediction"].split(",")))
+            # ndcg5_at_k, ndcg10_at_k, mrr
+            sampled_df.loc[index, metric_cols] = result
+            sampled_df.to_csv(
+                f"generated_data/sampled_{suffix}.csv",
+                index=False,
+            )
+        except Exception as e:
+            print(e)
+            sampled_df.loc[index, model_name] = ""
+            failed_imp.append(sampled_df.loc[index, "impression_id"])
+            sampled_df[sampled_df["impression_id"].isin(failed_imp)].to_csv(
+                f"generated_data/sampled_{suffix}_failed.csv",
+                index=False,
+            )
+            continue
+        performance.append([sampled_df.loc[index, "impression_id"]] + result)
+        performance_df = evaluate_performance(performance, metric_cols=metric_cols)
+        sampled_df[~sampled_df["impression_id"].isin(failed_imp)].to_csv(
+            f"generated_data/sampled_{suffix}.csv", index=False
+        )
+        performance_df.to_csv(
+            f"result/sampled_{suffix}.csv",
+            index=False,
+        )
