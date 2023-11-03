@@ -7,7 +7,7 @@ import guidance
 from tqdm import tqdm
 from string import Template
 from common import load_api_key, evaluate_one, load_cmd_line
-from templates import template1, template2, template3, template4
+from templates import template1, template2, template3, template4, gpt_template, llama_template
 
 
 def seed_everything(seed=42):
@@ -74,15 +74,19 @@ if __name__ == "__main__":
     suffix = f"template-{template_no}_{model_name}_temperature-{temperature}"
     result_path = f"generated_data/{suffix}.csv"
     data_cols = ["impression_id", "history", "candidate", "label"]
-    # llama = guidance.llms.Transformers(f"meta-llama/{model_name}")
-    gpt = guidance.llms.OpenAI(model_name, api_key=load_api_key())
+    user_template = template_list[template_no]
+    if "gpt" in model_name.lower():
+        model = guidance.llms.OpenAI(model_name, api_key=load_api_key())
+        template = Template(gpt_template).safe_substitute({"temperature": temperature, "input": user_template})
+    else:
+        model = guidance.llms.Transformers(f"meta-llama/{model_name}")
+        template = Template(llama_template).safe_substitute({"input": user_template})
     score_path = f"result/{suffix}.csv"
     metric_list = ["nDCG@5", "nDCG@10", "MRR"]
     results = []
     for index in tqdm(samples.index, total=len(samples)):
         line = {col: samples.loc[index, col] for col in data_cols}
-        template = Template(template_list[template_no])
-        experts = guidance(template.safe_substitute({"temperature": temperature}), llm=gpt, silent=True)
+        experts = guidance(template, llm=model, silent=True)
         out = experts(history=line["history"], candidate=line["candidate"])
         line["output"] = out["rank"]
         line.update(evaluate_output(out["rank"], line["label"], metric_list))
