@@ -7,9 +7,9 @@ import pandas as pd
 from pathlib import Path
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from one_shot_example import one_shot
-from common import load_cmd_line, load_api_key, evaluate_one
-from utils import evaluate_performance
+from common import load_cmd_line, load_api_key
+from utils import evaluate_output, save2file, cal_avg_scores, seed_everything
+from llama_templates import template4
 
 
 if __name__ == "__main__":
@@ -17,21 +17,22 @@ if __name__ == "__main__":
     cache_dir = args.get("cache_dir", None)
     sample_num = args.get("sample_num", 1000)
     sampled_df = pd.read_csv(f"sampled_{sample_num}.csv")
+    seed_everything(args.get("seed", 42))
+    template_list = {4: template4}
+    template_no = args.get("template_no", 4)
     temp_name = args.get("prompt_temp", "naive_zero_shot")
     prompt_temp = json.load(open("prompt_temp.json", "r"))[temp_name]
     model_name = args.get("model_name", "Llama-2-13b-hf")
-    suffix = f"{sample_num}_{model_name}_{temp_name}"
+    suffix = f"template-{template_no}_{model_name}"
     token = load_api_key("hf_token.json")
     root = Path("generated_data/")
     os.makedirs(root, exist_ok=True)
-    start = time.time()
     tokenizer = AutoTokenizer.from_pretrained(
         f"meta-llama/{model_name}",
         cache_dir=cache_dir,
         token=token,
         force_download=False,
     )
-    print(f"Loading tokenizer takes {time.time() - start} seconds")
     model = AutoModelForCausalLM.from_pretrained(
         f"meta-llama/{model_name}",
         cache_dir=cache_dir,
@@ -46,56 +47,32 @@ if __name__ == "__main__":
     # metric_cols = ["AUC", "MRR", "nDCG@5", "nDCG@10"]
     # "ndcg5", "ndcg10", "mrr"
     metric_cols = ["nDCG@5", "nDCG@10", "MRR"]
-    failed_imp = []
-    performance = []
+    data_cols = ["impression_id", "history", "candidate", "label"]
+    failed_ins = []
+    results = []
     for index in tqdm(sampled_df.index, total=len(sampled_df)):
-        hist, cand, label = sampled_df.loc[index, ["history", "candidate", "label"]]
-        if "one_shot" in temp_name:
-            full_prompt = prompt_temp.format(one_shot=one_shot, hist=hist, cand=cand)
-        else:
-            full_prompt = prompt_temp.format(hist=hist, cand=cand)
-
+        line = {col: sampled_df.loc[index, col] for col in data_cols}
+        full_prompt = template_list[template_no].format(history=line["history"], candidate=line["candidate"])
         inputs = tokenizer(full_prompt, return_tensors="pt")
-        start = time.time()
         torch.cuda.empty_cache()
         input_ids = inputs.input_ids.to(model.device)
-        generate_ids = model.generate(
-            input_ids,
-            max_length=1800,
-            max_new_tokens=args.get("max_new_tokens", 40),
-        )
-        output = tokenizer.batch_decode(
-            generate_ids,
-            skip_special_tokens=True,
-            clean_up_tokenization_spaces=False,
-        )[0][len(full_prompt):]
         try:
-            sampled_df.loc[index, "prediction"] = ",".join(re.findall(r"C\d+", output))
-            sampled_df.loc[index, model_name] = output
-            # result = list(calculate_metrics(label.split(","), output.split(",")))
-            # auc, mrr, ndcg5_at_k, ndcg10_at_k
-            result = list(evaluate_one(label.split(","), sampled_df.loc[index, "prediction"].split(",")))
-            # ndcg5_at_k, ndcg10_at_k, mrr
-            sampled_df.loc[index, metric_cols] = result
-            sampled_df.to_csv(
-                f"generated_data/sampled_{suffix}.csv",
-                index=False,
+            generate_ids = model.generate(
+                input_ids,
+                max_length=4000,
+                max_new_tokens=args.get("max_new_tokens", 40),
             )
+            line["output"] = tokenizer.batch_decode(
+                generate_ids,
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=False,
+            )[0][len(full_prompt):]
+            line.update(evaluate_output(line["output"], line["label"], line["candidate"], metric_cols))
+            results.append(line)
+            save2file(results, f"generated_data/{suffix}.csv")
+            cal_avg_scores(results, f"result/{suffix}.csv", model_name, metric_cols)
         except Exception as e:
             print(e)
-            sampled_df.loc[index, model_name] = ""
-            failed_imp.append(sampled_df.loc[index, "impression_id"])
-            sampled_df[sampled_df["impression_id"].isin(failed_imp)].to_csv(
-                f"generated_data/sampled_{suffix}_failed.csv",
-                index=False,
-            )
+            failed_ins.append(line)
+            save2file(failed_ins, f"generated_data/{suffix}-failed.csv")
             continue
-        performance.append([sampled_df.loc[index, "impression_id"]] + result)
-        performance_df = evaluate_performance(performance, metric_cols=metric_cols)
-        sampled_df[~sampled_df["impression_id"].isin(failed_imp)].to_csv(
-            f"generated_data/sampled_{suffix}.csv", index=False
-        )
-        performance_df.to_csv(
-            f"result/sampled_{suffix}.csv",
-            index=False,
-        )
