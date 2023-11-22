@@ -27,28 +27,42 @@ def build_prompt_temple1(history, candidate):
     Candidate News:
     {candidate}
 
-    # Task Description:
-    1. 'User's History News' features headlines that have previously engaged the user, signaling their interests.
-    2. 'Candidate News' presents a set of headlines not yet seen by the user. The sequence of these headlines should not influence the ranking.
-    3. Your objective is to impartially select the top 10 headlines from 'Candidate News' that most closely resonate with the user's interests as reflected in 'User's History News'.
-
+    #Task Description:
+    1. The goal is to analyze and compare the content of 'User's History News' and 'Candidate News'.
+    2. 'User's History News' consists of headlines that the user has previously engaged with.
+    3. 'Candidate News' features a set of new headlines not yet seen by the user.
+    4. The task is to find the similarities between the two sets of news to identify the most relevant 'Candidate News' headlines.
     
-    # Recommendation Process:
-    1. Independently assess 'User's History News' to deduce the user's core interested topics.
-    2. Scrutinize the topics of 'Candidate News', disregarding their initial order, to gauge their relevance to the user’s interests.
-    3. Strategically rank the 'Candidate News' headlines by relevance, not by their original placement in the list.
-
+    # Analysis Process:
+    1. Examine 'User's History News' to identify key topics, themes, and keywords.
+    2. Evaluate 'Candidate News' for similar topics, themes, and keywords.
+    3. Focus on the content and thematic overlap between the two news sets.
+    
     # Output Format:
-    - Start with the phrase: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#."
-    - Proceed with a relevance-based justification for each headline's ranking, such as: "C# pertains to topics X, Y, Z, which align with the user's interest shown in headlines H#, H#, H#."
-    - Maintain this structure for each of the top 10 headlines.
-    - The total output should not exceed a 200-word limit, focusing on the alignment of topics rather than the original order of 'Candidate News'.
+    1. Begin with: "The top 10 most relevant 'Candidate News' headlines, based on their similarity to 'User's History News', are: C#, C#, ..."
+    2. Provide a brief explanation for each headline's inclusion, highlighting the specific similarities in topics or themes with 'User's History News'. For example: "C# is included because it shares similar themes X and Y with historical headlines H#, H#."
+    3. Keep the total output concise, emphasizing the similarities rather than the individual content of the news headlines.
+    """
+
+    return user_inputs
+
+def build_prompt_temple2(history, candidate):
+    
+
+    user_inputs = f"""
+    User's History News:
+    {history}
+    Candidate News:
+    {candidate}
+
+    Identify and compare key elements from 'User's History News' and 'Candidate News'. Rank 'Candidate News' by the number of similar pairs with the whole 'User's History News', and return only the ranked list of candidate IDs.
+
     """
 
     return user_inputs
 
 def build_instruction():
-    instruction = '''You are the Perfect News Recommender'''
+    instruction = '''You are a sophisticated text analysis and ranking system.'''
 
     return instruction
 
