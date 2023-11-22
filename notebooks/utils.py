@@ -28,7 +28,7 @@ def shuffle_candidates(candidates: str):
     return "\n".join(candidates)
 
 
-def save2file(results_list, saved_path):
+def save2csv(results_list, saved_path):
     df = pd.DataFrame.from_records(results_list)
     df.to_csv(saved_path, index=False)
 
