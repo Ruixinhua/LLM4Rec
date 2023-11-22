@@ -8,7 +8,7 @@ from pathlib import Path
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from common import load_cmd_line, load_api_key
-from utils import evaluate_output, save2file, cal_avg_scores, seed_everything
+from utils import evaluate_output, save2csv, cal_avg_scores, seed_everything
 from llama_templates import template4
 
 
@@ -69,10 +69,10 @@ if __name__ == "__main__":
             )[0][len(full_prompt):]
             line.update(evaluate_output(line["output"], line["label"], line["candidate"], metric_cols))
             results.append(line)
-            save2file(results, f"generated_data/{suffix}.csv")
+            save2csv(results, f"generated_data/{suffix}.csv")
             cal_avg_scores(results, f"result/{suffix}.csv", model_name, metric_cols)
         except Exception as e:
             print(e)
             failed_ins.append(line)
-            save2file(failed_ins, f"generated_data/{suffix}-failed.csv")
+            save2csv(failed_ins, f"generated_data/{suffix}-failed.csv")
             continue

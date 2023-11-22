@@ -4,7 +4,7 @@ import metric_utils as module_metric
 import pandas as pd
 from tqdm import tqdm
 from common import load_cmd_line
-from utils import convert2list, evaluate_list, save2file, cal_avg_scores
+from utils import convert2list, evaluate_list, save2csv, cal_avg_scores
 
 
 def generate_random_predictions(candidate_col):
@@ -43,5 +43,5 @@ if __name__ == "__main__":
         line.update(evaluate_list(output_list, label_list, metric_funcs))
         line.update(evaluate_list(output_list, label_list, metric_funcs))
         results.append(line)
-        save2file(results, result_path)
+        save2csv(results, result_path)
         cal_avg_scores(results, score_path, model_name, metric_list)

@@ -7,7 +7,7 @@ ${input}
 {{~/user}}
 
 {{#assistant~}}
-{{gen 'rank' temperature=${temperature} max_tokens=2000}}
+{{gen 'rank' temperature=${temperature} max_tokens=${max_tokens}}}
 {{~/assistant}}
 """
 
@@ -156,5 +156,30 @@ CANDIDATE NEWS END
 DON'T let the sequence order of the 'CANDIDATE NEWS' influence you.
 DON'T let the sequence order of the 'CANDIDATE NEWS' influence you.
 DON'T let the sequence order of the 'CANDIDATE NEWS' influence you.
+# Here is your output:
+"""
+
+template7 = """News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first; and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#:#news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#:#news', where 'C#' is the ID of the news and '#news' contains the news headline.
+# INPUT
+USER'S HISTORY NEWS BEGIN
+{{history}}
+USER'S HISTORY NEWS END
+CANDIDATE NEWS BEGIN
+{{candidate}}
+CANDIDATE NEWS END
+# Recommendation Process:
+1. Extract Keywords from News Content: Begin by extracting keywords that accurately describe and represent each news item. These keywords should capture the essence of the news content.
+2. Analyze User's History News:
+2.1 Extract a collection of keywords from all 'User's History News'.
+2.2 Group these keywords into clusters representing related concepts or meanings, known as 'topic'. A topic typically consists of a series of frequently co-occurring words reflecting underlying topics or discussions. For example, a cluster including words like 'NBA', 'player', and 'match' closely relates to the concept of 'sports'. If a user's historical browsing news frequently involves these words, it can be inferred that they are interested in 'sports'.
+2.3 The aim here is to analyze the keyword collection to summarize and infer topics that the user is interested in.
+3. Match Candidate News with User's Interests.
+3.1 Extract keywords from each 'Candidate News'.
+3.2 Analyze how well the keywords in each Candidate News match with the user's interested topics.
+3.3 The degree of match is defined by how closely the keywords in a candidate news item relate to the corresponding topic. For example, if a user is interested in 'sports' and a candidate news item mentions words like 'NBA' and 'player', it can be considered a perfect match for the user's interest, potentially scoring 10 out of 10 on an assessment scale. Conversely, if a candidate news item focuses on topics like 'dog' and 'cat' related to 'pets', it would not match the user's interest in 'sports' and would rank lower in the recommendation list.
+# Output Format:
+- The first part of the output should summarize the user's interested topics, starting with "Here are the user's interested topics and their related keyword collections: ...". This sentence should include all topics that the user is interested in and corresponding keywords in the format #topic: #keyword,#keyword,etc". '#topic' should be a specific concept and '#keyword' should be replaced with the corresponding keywords from 'USER'S HISTORY NEWS' set. 
+- The second part should include up to 10 most relevant news from the CANDIDATE NEWS set in the format "#news: The extracted keywords of this news is: #keyword,#keyword,etc. The matched topics are: #topic,#topic,etc.". You should replace '#news' with the corresponding news headline, '#keyword' and '#keyword' are corresponding keywords extracted from the headline, and '#topic' and '#topic' are specific topics that the user is interested in. If no topic is found, output 'There is no matched topic.' as the result.
+- At last, the output needs to rank these relevant news by their relevance to the user's summarized interest in the format: "The most relevant news is C#; the second relevant one is C#;...; the news in rank 10 is C#". It should include up to 10 most relevant news, where 'C#' is the news ID from the 'CANDIDATE NEWS' set.
 # Here is your output:
 """
