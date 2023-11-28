@@ -14,7 +14,6 @@ req_header = {
 }
 
 
-
 openai.api_key = "EMPTY"
 openai.api_base = "http://bendstar.com:8000/v1"
 models = openai.Model.list()
@@ -27,14 +26,14 @@ data_cols = ["impression_id", "history", "candidate", "label"]
 
 
 result_path = f"result/sampled_100_result.csv"
-score_path = f"result/metrics_key.csv"
+score_path = f"result/metrics_key_2.csv"
 metric_list = ["nDCG@5", "nDCG@10", "MRR"]
 results = []
 
 # %%
 for index in tqdm(samples.index, total=len(samples)):
     line = {col: samples.loc[index, col] for col in data_cols}
-    user_content = build_prompt(history=line["history"], candidate=line["candidate"])
+    user_content = build_prompt_temple1(history=line["history"], candidate=line["candidate"])
 
 
     chat_completion = json.dumps({

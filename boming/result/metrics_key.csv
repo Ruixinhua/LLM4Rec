@@ -1,2 +1,2 @@
 nDCG@5,nDCG@10,MRR,model,sample_num
-0.2866074701016694,0.33295867039133126,0.24924538121259435,meta-llama/Llama-2-70b-chat-hf,61
+0.0,0.0,0.0,meta-llama/Llama-2-70b-chat-hf,1
