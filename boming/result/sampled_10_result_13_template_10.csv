@@ -1,0 +1,222 @@
+impression_id,history,candidate,label,input,output,nDCG@5,nDCG@10,MRR,rank
+7846,"H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.","C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.",C3,"
+
+    User's History News:
+    H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.
+    Candidate News:
+    C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+    
+    # Process Overview
+    - Extract specific keywords from a set of given historical news data.
+    - Identify precise keywords for each candidate news item.
+
+    # Ranking Principle
+    - Rank the candidate news based on the extent of keyword match and the quantity of matched keywords.
+    - News items with a higher number of matching or closely related keywords are given priority in the ranking.
+    - Additional consideration is given to news items that contain relevant keywords, even if not directly matching, to ensure a comprehensive match analysis.
+
+        
+    # Output Format: Ranked Specific Keywords
+    - Present the top 10 recommended news headlines, ranked solely by their relevance to the user's interests.
+    - Output: ""Top 10 recommended news headlines, ranked by relevance, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    ","  I understand that you want me to rank the candidate news based on the extent of keyword match and the quantity of matched keywords. Here are the top 10 recommended news headlines, ranked solely by their relevance to the user's interests:
+
+1. H1: Cause determined in Jessi Combs' fatal speed record crash
+2. C1: Queen Elizabeth Just Rode Horseback at Age 93
+3. H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+4. H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+5. C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+6. H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+7. H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+8. C3: 30 Best Black Friday Deals from Costco
+9. H4: Cornell student, 18, found dead in gorge after frat party, reports say
+10. H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+
+These news headlines have been ranked based on the presence and frequency of keywords related to the user's interests. The keywords used for this ranking include ""Jessi Combs,"" ""Brad Pitt,"" ""Black Friday,"" ""Myles Garrett,"" ""Kellen Winslow II,"" ""Felicity Huffman,"" ""Costco,"" ""Cornell,"" and ""Kevin Spacey."" The headlines that contain these keywords or closely related terms have been prioritized in the ranking.",0.5,0.5,0.3333333333333333,"C1,C4,C3"
+59617,"H1: Blueberry Dump Cake Satisfies Every Sweet Tooth
+H2: 17 Easy Fall Slow-Cooker Recipes That Taste Like Autumn
+H3: Trailer - Dolittle
+H4: Meghan Markle and Prince Harry are bringing Archie on his first trip to the US over Thanksgiving
+H5: Ford Kills the Flex
+H6: Here's What to Cook This Week (October 28 - November 3)
+H7: 10 Best Home Renovations to Squeeze in Before Winter
+H8: Bette Midler and Kathy Najimy Dish on Upcoming 'Hocus Pocus' Sequel and If They'd Be Involved
+H9: 70 Easy Thanksgiving Recipes You'll Love
+H10: 37 beautiful Christmas table decorating ideas
+H11: 25 Thanksgiving Recipes You Can Make in Your Instant Pot
+H12: 35 Easy Thanksgiving Appetizers
+H13: Spiked Seltzer vs. Beer: Which Is Healthier?
+H14: Creative Recipes That Let You Step Outside the Thanksgiving Box","C1: 85 Thanksgiving Recipes You Can Make Ahead
+C2: 8 Clear Signs You're Not Eating Enough Vegetables
+C3: Pittsburgh Steelers quarterback Mason Rudolph on 'TNF' incident: 'I thought it was pretty cowardly'
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Ohio GOP lawmakers want to ban all abortions, charge doctors who perform them with murder
+C6: Surviving Santa Clarita school shooting victims on road to recovery: Latest
+C7: 'Charlie's Angels' stars: Where are they now?
+C8: 63 ideas to give your hallway a new look
+C9: I've been writing about tiny homes for a year and finally spent 2 nights in a 300-foot home to see what it's all about   here's how it went
+C10: New Trump rule to make more health care rates public
+C11: 40 Healthy Weeknight Dinners That Will Get You Through the Holidays
+C12: How to Make Chicken Parm Spaghetti Squash
+C13: Pair Of 'New' 1987 Buick Grand Nationals Pulled From Garage After 30 Years
+C14: Did Trump just commit witness tampering? I asked 7 legal experts.
+C15: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+C16: Belichick mocks social media in comments on Garrett incident
+C17: Will you get dementia? Many may not understand their risk
+C18: Ford v Ferrari: the real story
+C19: Russia lands forces at former U.S. air base in northern Syria
+C20: At NATO summit, Trump to stress US allies' defense spending
+C21: Envoy Was 'Obstacle' to Trump, Schiff Says: Impeachment Update
+C22: Pete Davidson, Kaia Gerber Are Dating, Trying to Stay 'Low Profile'
+C23: I Overate at Dinner Until I Started Doing This 1 Simple Thing on Sundays (It Takes 10 Minutes!)
+C24: Iran moves on ultra-cheap petrol, starts rationing
+C25: Billionaires' success boils down to 3 simple traits, a new report says
+C26: The Unlikely Star of My Family's Thanksgiving Table
+C27: Fashion hits and misses from the 2019 Country Music Association Awards
+C28: Report: Police investigating woman's death after Redskins' player Montae Nicholson took her to hospital
+C29: THEN AND NOW: What all your favorite '90s stars are doing today
+C30: Five Great Holiday Cruises Worth Taking
+C31: Intimidation among key takeaways from the Trump impeachment hearing with Marie Yovanovitch
+C32: Meghan Markle's Lawyers Debunk Multiple False Tabloid Stories in New Court Documents
+C33: U.S. Troops Will Die If They Remain in Syria, Bashar Al-Assad Warns
+C34: Greek donkeys are still being abused as 'tourist taxis,' PETA claims
+C35: Cows swept away by Hurricane Dorian found alive   but how?
+C36: Homeless woman living in SUV with dogs moves into apartment with community's help
+C37: Debunking the week's tabloid stories: Nov. 15, 2019
+C38: Alex Rodriguez Jokingly Talks About Marrying Jennifer Lopez During Super Bowl Halftime Show
+C39: 12 Cars Lose Consumer Reports' Recommendation Over Reliability Issues
+C40: Former North Carolina State, NBA player Anthony Grundy dies in stabbing, police say
+C41: The most talked about movie moments of the 2010s
+C42: Bold predictions for Week 12 in college football
+C43: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C44: Taylor Swift Rep Hits Back at Big Machine, Claims She's Actually Owed $7.9 Million in Unpaid Royalties
+C45: 3 Indiana judges suspended after a night of drinking turned into a White Castle brawl
+C46: How Google Interferes With Its Search Algorithms and Changes Your Results
+C47: 11 Regional Thanksgiving Recipes That Food Bloggers Swear By
+C48: Kate Middleton Took Public Transit to Her Royal Engagement Today
+C49: 66 Cool Tech Gifts Anyone Would Be Thrilled to Receive
+C50: I'm A Queer Woman Dating A Trans Man   & No One Knows
+C51: How much turkey do you need to buy per person?
+C52: There's a place in the US where its been over 80 degrees since March
+C53: Olive Garden Actually Has A Ton Of Keto-Friendly Options That Aren't Sauce On A Plate
+C54: Maze of tunnels reveals remains of ancient Jerusalem
+C55: Amari gets heroic birthday surprise
+C56: Browns apologize to Mason Rudolph, call Myles Garrett's actions 'unacceptable'
+C57: 20 Ways You're Not Prepping Your Home for Winter, According to Experts
+C58: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C59: The Kardashians Face Backlash Over 'Insensitive' Family Food Fight in KUWTK Clip
+C60: 13 Reasons Why's Christian Navarro Slams Disney for Casting 'the White Guy' in The Little Mermaid
+C61: 22 Smart Tax Moves to Make Before the End of the Year",C12,"
+
+    User's History News:
+    H1: Blueberry Dump Cake Satisfies Every Sweet Tooth
+H2: 17 Easy Fall Slow-Cooker Recipes That Taste Like Autumn
+H3: Trailer - Dolittle
+H4: Meghan Markle and Prince Harry are bringing Archie on his first trip to the US over Thanksgiving
+H5: Ford Kills the Flex
+H6: Here's What to Cook This Week (October 28 - November 3)
+H7: 10 Best Home Renovations to Squeeze in Before Winter
+H8: Bette Midler and Kathy Najimy Dish on Upcoming 'Hocus Pocus' Sequel and If They'd Be Involved
+H9: 70 Easy Thanksgiving Recipes You'll Love
+H10: 37 beautiful Christmas table decorating ideas
+H11: 25 Thanksgiving Recipes You Can Make in Your Instant Pot
+H12: 35 Easy Thanksgiving Appetizers
+H13: Spiked Seltzer vs. Beer: Which Is Healthier?
+H14: Creative Recipes That Let You Step Outside the Thanksgiving Box
+    Candidate News:
+    C1: 85 Thanksgiving Recipes You Can Make Ahead
+C2: 8 Clear Signs You're Not Eating Enough Vegetables
+C3: Pittsburgh Steelers quarterback Mason Rudolph on 'TNF' incident: 'I thought it was pretty cowardly'
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Ohio GOP lawmakers want to ban all abortions, charge doctors who perform them with murder
+C6: Surviving Santa Clarita school shooting victims on road to recovery: Latest
+C7: 'Charlie's Angels' stars: Where are they now?
+C8: 63 ideas to give your hallway a new look
+C9: I've been writing about tiny homes for a year and finally spent 2 nights in a 300-foot home to see what it's all about   here's how it went
+C10: New Trump rule to make more health care rates public
+C11: 40 Healthy Weeknight Dinners That Will Get You Through the Holidays
+C12: How to Make Chicken Parm Spaghetti Squash
+C13: Pair Of 'New' 1987 Buick Grand Nationals Pulled From Garage After 30 Years
+C14: Did Trump just commit witness tampering? I asked 7 legal experts.
+C15: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+C16: Belichick mocks social media in comments on Garrett incident
+C17: Will you get dementia? Many may not understand their risk
+C18: Ford v Ferrari: the real story
+C19: Russia lands forces at former U.S. air base in northern Syria
+C20: At NATO summit, Trump to stress US allies' defense spending
+C21: Envoy Was 'Obstacle' to Trump, Schiff Says: Impeachment Update
+C22: Pete Davidson, Kaia Gerber Are Dating, Trying to Stay 'Low Profile'
+C23: I Overate at Dinner Until I Started Doing This 1 Simple Thing on Sundays (It Takes 10 Minutes!)
+C24: Iran moves on ultra-cheap petrol, starts rationing
+C25: Billionaires' success boils down to 3 simple traits, a new report says
+C26: The Unlikely Star of My Family's Thanksgiving Table
+C27: Fashion hits and misses from the 2019 Country Music Association Awards
+C28: Report: Police investigating woman's death after Redskins' player Montae Nicholson took her to hospital
+C29: THEN AND NOW: What all your favorite '90s stars are doing today
+C30: Five Great Holiday Cruises Worth Taking
+C31: Intimidation among key takeaways from the Trump impeachment hearing with Marie Yovanovitch
+C32: Meghan Markle's Lawyers Debunk Multiple False Tabloid Stories in New Court Documents
+C33: U.S. Troops Will Die If They Remain in Syria, Bashar Al-Assad Warns
+C34: Greek donkeys are still being abused as 'tourist taxis,' PETA claims
+C35: Cows swept away by Hurricane Dorian found alive   but how?
+C36: Homeless woman living in SUV with dogs moves into apartment with community's help
+C37: Debunking the week's tabloid stories: Nov. 15, 2019
+C38: Alex Rodriguez Jokingly Talks About Marrying Jennifer Lopez During Super Bowl Halftime Show
+C39: 12 Cars Lose Consumer Reports' Recommendation Over Reliability Issues
+C40: Former North Carolina State, NBA player Anthony Grundy dies in stabbing, police say
+C41: The most talked about movie moments of the 2010s
+C42: Bold predictions for Week 12 in college football
+C43: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C44: Taylor Swift Rep Hits Back at Big Machine, Claims She's Actually Owed $7.9 Million in Unpaid Royalties
+C45: 3 Indiana judges suspended after a night of drinking turned into a White Castle brawl
+C46: How Google Interferes With Its Search Algorithms and Changes Your Results
+C47: 11 Regional Thanksgiving Recipes That Food Bloggers Swear By
+C48: Kate Middleton Took Public Transit to Her Royal Engagement Today
+C49: 66 Cool Tech Gifts Anyone Would Be Thrilled to Receive
+C50: I'm A Queer Woman Dating A Trans Man   & No One Knows
+C51: How much turkey do you need to buy per person?
+C52: There's a place in the US where its been over 80 degrees since March
+C53: Olive Garden Actually Has A Ton Of Keto-Friendly Options That Aren't Sauce On A Plate
+C54: Maze of tunnels reveals remains of ancient Jerusalem
+C55: Amari gets heroic birthday surprise
+C56: Browns apologize to Mason Rudolph, call Myles Garrett's actions 'unacceptable'
+C57: 20 Ways You're Not Prepping Your Home for Winter, According to Experts
+C58: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C59: The Kardashians Face Backlash Over 'Insensitive' Family Food Fight in KUWTK Clip
+C60: 13 Reasons Why's Christian Navarro Slams Disney for Casting 'the White Guy' in The Little Mermaid
+C61: 22 Smart Tax Moves to Make Before the End of the Year
+    
+    # Process Overview
+    - Extract specific keywords from a set of given historical news data.
+    - Identify precise keywords for each candidate news item.
+
+    # Ranking Principle
+    - Rank the candidate news based on the extent of keyword match and the quantity of matched keywords.
+    - News items with a higher number of matching or closely related keywords are given priority in the ranking.
+    - Additional consideration is given to news items that contain relevant keywords, even if not directly matching, to ensure a comprehensive match analysis.
+
+        
+    # Output Format: Ranked Specific Keywords
+    - Present the top 10 recommended news headlines, ranked solely by their relevance to the user's interests.
+    - Output: ""Top 10 recommended news headlines, ranked by relevance, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    ","  I'm sorry, but I don't have enough information to provide a ranking of the news articles.  Can you provide more context or details?",0.0,0.0,0.0,

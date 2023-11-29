@@ -1,0 +1,480 @@
+impression_id,history,candidate,label,input,output,nDCG@5,nDCG@10,MRR,rank
+7846,"H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.","C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.",C3,"
+    # Input
+    User's History News:
+    H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.
+    Candidate News:
+    C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+
+    # Recommendation Process:
+    1. 'User's History News' contains headlines that have engaged the user, revealing their interests through one broad key theme and five specific keywords.
+    2. 'Candidate News' consists of new headlines. The order of these headlines is not relevant to their ranking.
+    3. Your objective is to select the top 10 headlines from 'Candidate News' that are most closely aligned with the user's broad theme and specific keywords as indicated in 'User's History News'.
+
+    # Recommendation Process:
+    1. Analyze 'User's History News' to identify one broad key theme and extract five specific keywords reflecting the user's interests.
+    2. For 'Candidate News', identify the main theme and extract five keywords from each headline, disregarding their initial sequence, to evaluate their relevance to the user’s interests.
+    3. Rank the 'Candidate News' headlines by relevance to the broad theme and specific keywords identified in the user's history, not by their original order.
+
+    # Output Format:
+    - Begin with: ""The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    - Include a justification for each headline's ranking, emphasizing their alignment with the broad theme and specific keywords: ""C# relates to broad theme X and includes keywords A, B, C, closely matching the user's interest as shown in headlines H#, H#, H#.""
+    - Follow this structure for each of the top 10 headlines.
+    - Limit the total output to 200 words, focusing on the alignment of the broad theme and specific keywords rather than the original sequence of 'Candidate News'.""
+    ","  The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are:
+
+C1: Queen Elizabeth Just Rode Horseback at Age 93
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for the rest of the year after a helmet attack.
+C3: 30 Best Black Friday Deals from Costco
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+C2: South Carolina teen gets life in prison for a deadly elementary school shooting
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H8: Iowan convicted of murder claims his life sentence was served once he died, was revived in a medical emergency. The court disagrees.
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+C7: 30 Best Black Friday Deals from Costco
+
+Justification:
+
+C1 relates to the broad theme of ""Entertainment"" and includes keywords ""Queen Elizabeth,"" which closely matches the user's interest as shown in headlines H1 and H6.
+
+C4 relates to the broad theme of ""Sports"" and includes keywords ""Myles Garrett,"" which closely matches the user's interest as shown in headline H7.
+
+C3 and C7 relate to the broad theme of ""Shopping"" and include keywords ""Black Friday,"" which closely matches the user's interest as shown in headline H7.
+
+H5 relates to the broad theme of ""Celebrity News"" and includes keywords ""Brad Pitt,"" which closely matches the user's interest as shown in headline H6.
+
+H7 relates to the broad theme of ""Shopping"" and includes keywords ""Black Friday,"" which closely matches the user's interest as shown in headline H7.
+
+H6 relates to the broad theme of ""Entertainment"" and includes keywords ""Felicity Huffman,"" which closely matches the user's interest as shown in headline H1.
+
+H8 relates to the broad theme of ""Crime"" and includes keywords ""murder,"" which closely matches the user's interest as shown in headline H2.
+
+H4 relates to the broad theme of ""Education"" and includes keywords ""Cornell student,"" which closely matches the user's interest as shown in headline H3.
+
+Overall, the top 10 recommended headlines align with the user's interests in entertainment, sports, shopping, celebrity news, and crime, as reflected in their history of news engagement.",0.5,0.5,0.3333333333333333,"C1,C4,C3,C2,C7"
+59617,"H1: Blueberry Dump Cake Satisfies Every Sweet Tooth
+H2: 17 Easy Fall Slow-Cooker Recipes That Taste Like Autumn
+H3: Trailer - Dolittle
+H4: Meghan Markle and Prince Harry are bringing Archie on his first trip to the US over Thanksgiving
+H5: Ford Kills the Flex
+H6: Here's What to Cook This Week (October 28 - November 3)
+H7: 10 Best Home Renovations to Squeeze in Before Winter
+H8: Bette Midler and Kathy Najimy Dish on Upcoming 'Hocus Pocus' Sequel and If They'd Be Involved
+H9: 70 Easy Thanksgiving Recipes You'll Love
+H10: 37 beautiful Christmas table decorating ideas
+H11: 25 Thanksgiving Recipes You Can Make in Your Instant Pot
+H12: 35 Easy Thanksgiving Appetizers
+H13: Spiked Seltzer vs. Beer: Which Is Healthier?
+H14: Creative Recipes That Let You Step Outside the Thanksgiving Box","C1: 85 Thanksgiving Recipes You Can Make Ahead
+C2: 8 Clear Signs You're Not Eating Enough Vegetables
+C3: Pittsburgh Steelers quarterback Mason Rudolph on 'TNF' incident: 'I thought it was pretty cowardly'
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Ohio GOP lawmakers want to ban all abortions, charge doctors who perform them with murder
+C6: Surviving Santa Clarita school shooting victims on road to recovery: Latest
+C7: 'Charlie's Angels' stars: Where are they now?
+C8: 63 ideas to give your hallway a new look
+C9: I've been writing about tiny homes for a year and finally spent 2 nights in a 300-foot home to see what it's all about   here's how it went
+C10: New Trump rule to make more health care rates public
+C11: 40 Healthy Weeknight Dinners That Will Get You Through the Holidays
+C12: How to Make Chicken Parm Spaghetti Squash
+C13: Pair Of 'New' 1987 Buick Grand Nationals Pulled From Garage After 30 Years
+C14: Did Trump just commit witness tampering? I asked 7 legal experts.
+C15: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+C16: Belichick mocks social media in comments on Garrett incident
+C17: Will you get dementia? Many may not understand their risk
+C18: Ford v Ferrari: the real story
+C19: Russia lands forces at former U.S. air base in northern Syria
+C20: At NATO summit, Trump to stress US allies' defense spending
+C21: Envoy Was 'Obstacle' to Trump, Schiff Says: Impeachment Update
+C22: Pete Davidson, Kaia Gerber Are Dating, Trying to Stay 'Low Profile'
+C23: I Overate at Dinner Until I Started Doing This 1 Simple Thing on Sundays (It Takes 10 Minutes!)
+C24: Iran moves on ultra-cheap petrol, starts rationing
+C25: Billionaires' success boils down to 3 simple traits, a new report says
+C26: The Unlikely Star of My Family's Thanksgiving Table
+C27: Fashion hits and misses from the 2019 Country Music Association Awards
+C28: Report: Police investigating woman's death after Redskins' player Montae Nicholson took her to hospital
+C29: THEN AND NOW: What all your favorite '90s stars are doing today
+C30: Five Great Holiday Cruises Worth Taking
+C31: Intimidation among key takeaways from the Trump impeachment hearing with Marie Yovanovitch
+C32: Meghan Markle's Lawyers Debunk Multiple False Tabloid Stories in New Court Documents
+C33: U.S. Troops Will Die If They Remain in Syria, Bashar Al-Assad Warns
+C34: Greek donkeys are still being abused as 'tourist taxis,' PETA claims
+C35: Cows swept away by Hurricane Dorian found alive   but how?
+C36: Homeless woman living in SUV with dogs moves into apartment with community's help
+C37: Debunking the week's tabloid stories: Nov. 15, 2019
+C38: Alex Rodriguez Jokingly Talks About Marrying Jennifer Lopez During Super Bowl Halftime Show
+C39: 12 Cars Lose Consumer Reports' Recommendation Over Reliability Issues
+C40: Former North Carolina State, NBA player Anthony Grundy dies in stabbing, police say
+C41: The most talked about movie moments of the 2010s
+C42: Bold predictions for Week 12 in college football
+C43: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C44: Taylor Swift Rep Hits Back at Big Machine, Claims She's Actually Owed $7.9 Million in Unpaid Royalties
+C45: 3 Indiana judges suspended after a night of drinking turned into a White Castle brawl
+C46: How Google Interferes With Its Search Algorithms and Changes Your Results
+C47: 11 Regional Thanksgiving Recipes That Food Bloggers Swear By
+C48: Kate Middleton Took Public Transit to Her Royal Engagement Today
+C49: 66 Cool Tech Gifts Anyone Would Be Thrilled to Receive
+C50: I'm A Queer Woman Dating A Trans Man   & No One Knows
+C51: How much turkey do you need to buy per person?
+C52: There's a place in the US where its been over 80 degrees since March
+C53: Olive Garden Actually Has A Ton Of Keto-Friendly Options That Aren't Sauce On A Plate
+C54: Maze of tunnels reveals remains of ancient Jerusalem
+C55: Amari gets heroic birthday surprise
+C56: Browns apologize to Mason Rudolph, call Myles Garrett's actions 'unacceptable'
+C57: 20 Ways You're Not Prepping Your Home for Winter, According to Experts
+C58: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C59: The Kardashians Face Backlash Over 'Insensitive' Family Food Fight in KUWTK Clip
+C60: 13 Reasons Why's Christian Navarro Slams Disney for Casting 'the White Guy' in The Little Mermaid
+C61: 22 Smart Tax Moves to Make Before the End of the Year",C12,"
+    # Input
+    User's History News:
+    H1: Blueberry Dump Cake Satisfies Every Sweet Tooth
+H2: 17 Easy Fall Slow-Cooker Recipes That Taste Like Autumn
+H3: Trailer - Dolittle
+H4: Meghan Markle and Prince Harry are bringing Archie on his first trip to the US over Thanksgiving
+H5: Ford Kills the Flex
+H6: Here's What to Cook This Week (October 28 - November 3)
+H7: 10 Best Home Renovations to Squeeze in Before Winter
+H8: Bette Midler and Kathy Najimy Dish on Upcoming 'Hocus Pocus' Sequel and If They'd Be Involved
+H9: 70 Easy Thanksgiving Recipes You'll Love
+H10: 37 beautiful Christmas table decorating ideas
+H11: 25 Thanksgiving Recipes You Can Make in Your Instant Pot
+H12: 35 Easy Thanksgiving Appetizers
+H13: Spiked Seltzer vs. Beer: Which Is Healthier?
+H14: Creative Recipes That Let You Step Outside the Thanksgiving Box
+    Candidate News:
+    C1: 85 Thanksgiving Recipes You Can Make Ahead
+C2: 8 Clear Signs You're Not Eating Enough Vegetables
+C3: Pittsburgh Steelers quarterback Mason Rudolph on 'TNF' incident: 'I thought it was pretty cowardly'
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Ohio GOP lawmakers want to ban all abortions, charge doctors who perform them with murder
+C6: Surviving Santa Clarita school shooting victims on road to recovery: Latest
+C7: 'Charlie's Angels' stars: Where are they now?
+C8: 63 ideas to give your hallway a new look
+C9: I've been writing about tiny homes for a year and finally spent 2 nights in a 300-foot home to see what it's all about   here's how it went
+C10: New Trump rule to make more health care rates public
+C11: 40 Healthy Weeknight Dinners That Will Get You Through the Holidays
+C12: How to Make Chicken Parm Spaghetti Squash
+C13: Pair Of 'New' 1987 Buick Grand Nationals Pulled From Garage After 30 Years
+C14: Did Trump just commit witness tampering? I asked 7 legal experts.
+C15: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+C16: Belichick mocks social media in comments on Garrett incident
+C17: Will you get dementia? Many may not understand their risk
+C18: Ford v Ferrari: the real story
+C19: Russia lands forces at former U.S. air base in northern Syria
+C20: At NATO summit, Trump to stress US allies' defense spending
+C21: Envoy Was 'Obstacle' to Trump, Schiff Says: Impeachment Update
+C22: Pete Davidson, Kaia Gerber Are Dating, Trying to Stay 'Low Profile'
+C23: I Overate at Dinner Until I Started Doing This 1 Simple Thing on Sundays (It Takes 10 Minutes!)
+C24: Iran moves on ultra-cheap petrol, starts rationing
+C25: Billionaires' success boils down to 3 simple traits, a new report says
+C26: The Unlikely Star of My Family's Thanksgiving Table
+C27: Fashion hits and misses from the 2019 Country Music Association Awards
+C28: Report: Police investigating woman's death after Redskins' player Montae Nicholson took her to hospital
+C29: THEN AND NOW: What all your favorite '90s stars are doing today
+C30: Five Great Holiday Cruises Worth Taking
+C31: Intimidation among key takeaways from the Trump impeachment hearing with Marie Yovanovitch
+C32: Meghan Markle's Lawyers Debunk Multiple False Tabloid Stories in New Court Documents
+C33: U.S. Troops Will Die If They Remain in Syria, Bashar Al-Assad Warns
+C34: Greek donkeys are still being abused as 'tourist taxis,' PETA claims
+C35: Cows swept away by Hurricane Dorian found alive   but how?
+C36: Homeless woman living in SUV with dogs moves into apartment with community's help
+C37: Debunking the week's tabloid stories: Nov. 15, 2019
+C38: Alex Rodriguez Jokingly Talks About Marrying Jennifer Lopez During Super Bowl Halftime Show
+C39: 12 Cars Lose Consumer Reports' Recommendation Over Reliability Issues
+C40: Former North Carolina State, NBA player Anthony Grundy dies in stabbing, police say
+C41: The most talked about movie moments of the 2010s
+C42: Bold predictions for Week 12 in college football
+C43: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C44: Taylor Swift Rep Hits Back at Big Machine, Claims She's Actually Owed $7.9 Million in Unpaid Royalties
+C45: 3 Indiana judges suspended after a night of drinking turned into a White Castle brawl
+C46: How Google Interferes With Its Search Algorithms and Changes Your Results
+C47: 11 Regional Thanksgiving Recipes That Food Bloggers Swear By
+C48: Kate Middleton Took Public Transit to Her Royal Engagement Today
+C49: 66 Cool Tech Gifts Anyone Would Be Thrilled to Receive
+C50: I'm A Queer Woman Dating A Trans Man   & No One Knows
+C51: How much turkey do you need to buy per person?
+C52: There's a place in the US where its been over 80 degrees since March
+C53: Olive Garden Actually Has A Ton Of Keto-Friendly Options That Aren't Sauce On A Plate
+C54: Maze of tunnels reveals remains of ancient Jerusalem
+C55: Amari gets heroic birthday surprise
+C56: Browns apologize to Mason Rudolph, call Myles Garrett's actions 'unacceptable'
+C57: 20 Ways You're Not Prepping Your Home for Winter, According to Experts
+C58: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C59: The Kardashians Face Backlash Over 'Insensitive' Family Food Fight in KUWTK Clip
+C60: 13 Reasons Why's Christian Navarro Slams Disney for Casting 'the White Guy' in The Little Mermaid
+C61: 22 Smart Tax Moves to Make Before the End of the Year
+
+    # Recommendation Process:
+    1. 'User's History News' contains headlines that have engaged the user, revealing their interests through one broad key theme and five specific keywords.
+    2. 'Candidate News' consists of new headlines. The order of these headlines is not relevant to their ranking.
+    3. Your objective is to select the top 10 headlines from 'Candidate News' that are most closely aligned with the user's broad theme and specific keywords as indicated in 'User's History News'.
+
+    # Recommendation Process:
+    1. Analyze 'User's History News' to identify one broad key theme and extract five specific keywords reflecting the user's interests.
+    2. For 'Candidate News', identify the main theme and extract five keywords from each headline, disregarding their initial sequence, to evaluate their relevance to the user’s interests.
+    3. Rank the 'Candidate News' headlines by relevance to the broad theme and specific keywords identified in the user's history, not by their original order.
+
+    # Output Format:
+    - Begin with: ""The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    - Include a justification for each headline's ranking, emphasizing their alignment with the broad theme and specific keywords: ""C# relates to broad theme X and includes keywords A, B, C, closely matching the user's interest as shown in headlines H#, H#, H#.""
+    - Follow this structure for each of the top 10 headlines.
+    - Limit the total output to 200 words, focusing on the alignment of the broad theme and specific keywords rather than the original sequence of 'Candidate News'.""
+    ","  The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are:
+
+C11, ""40 Healthy Weeknight Dinners That Will Get You Through the Holidays"" relates to the broad theme of lifestyle and includes keywords such as ""healthy,"" ""dinners,"" and ""holidays,"" closely matching the user's interest as shown in headlines H2, H3, and H9.
+
+C41, ""The most talked about movie moments of the 2010s"" relates to the broad theme of entertainment and includes keywords such as ""movie"" and ""moments,"" closely matching the user's interest as shown in headlines H10 and H11.
+
+C37, ""Debunking the week's tabloid stories: Nov. 15, 2019"" relates to the broad theme of entertainment and includes keywords such as ""tabloid"" and ""stories,"" closely matching the user's interest as shown in headlines H10 and H11.
+
+C27, ""Fashion hits and misses from the 2019 Country Music Association Awards"" relates to the broad theme of lifestyle and includes keywords such as ""fashion"" and ""awards,"" closely matching the user's interest as shown in headlines H2 and H9.
+
+C35, ""Cows swept away by Hurricane Dorian found alive... but how?"" relates to the broad theme of news and includes keywords such as ""hurricane"" and ""found alive,"" closely matching the user's interest as shown in headlines H5 and H6.
+
+C49, ""66 Cool Tech Gifts Anyone Would Be Thrilled to Receive"" relates to the broad theme of lifestyle and includes keywords such as ""tech"" and ""gifts,"" closely matching the user's interest as shown in headlines H2 and H9.
+
+C59, ""The Kardashians Face Backlash Over 'Insensitive' Family Food Fight in KUWTK Clip"" relates to the broad theme of entertainment and includes keywords such as ""Kardashians"" and ""food fight,"" closely matching the user's interest as shown in headlines H10 and H11.
+
+C56, ""Browns apologize to Mason Rudolph, call Myles Garrett's actions 'unacceptable'"" relates to the broad theme of sports and includes keywords such as ""Browns"" and ""apologize,"" closely matching the user's interest as shown in headlines H7 and H8.
+
+C53, ""Olive Garden Actually Has A Ton Of Keto-Friendly Options That Aren't Sauce On A Plate"" relates to the broad theme of lifestyle and includes keywords such as ""Olive Garden"" and ""keto-friendly,"" closely matching the user's interest as shown in headlines H2 and H9.
+
+C51, ""How much turkey do you need to buy per person?"" relates to the broad theme of lifestyle and includes keywords such as ""turkey"" and ""buy,"" closely matching the user's interest as shown in headlines H2 and H9.
+
+Justification:
+The recommended headlines were selected based on their relevance to the user's broad theme and specific keywords. The broad theme of lifestyle was identified from headlines H2, H3, H9, and H11, while the broad theme of entertainment was identified from headlines H10 and H11. The specific keywords used for selection were ""healthy,"" ""dinners,"" ""holidays,"" ""movie,"" ""moments,"" ""tabloid,"" ""stories,"" ""fashion,"" ""awards,"" ""hurricane,"" ""found alive,"" ""tech,"" ""gifts,"" ""Kardashians,"" ""food fight,"" ""Browns,"" ""apologize,"" ""Myles Garrett,"" ""unacceptable,"" ""Olive Garden,"" ""keto-friendly,"" ""turkey,"" and ""buy."" The selected headlines closely match the user's interests and are ranked in order of relevance.",0.0,0.0,0.0,"C11,C41,C37,C27,C35,C49,C59,C56,C53,C51"
+43983,"H1: From cat names to fruit, here are 11 bizarre things celebrities have tried to trademark
+H2: Will Teresa Giudice and Joe Giudice Get Divorced? 'I Don't See It Working,' She Says
+H3: 50 Shelter Dogs That Need Homes Before 2020
+H4: What Judge Judy's husband got her for her 77th birthday
+H5: TobyMac says late son 'had an untamable grand personality,' shares last text exchange
+H6: 17 hours a day, 7 days a week: Cruise-ship workers describe the grueling conditions they face on the job
+H7: Jennifer Aniston Just Gave a Rare Look at Her Natural Hair Texture
+H8: Eminem Says He Sides With Chris Brown Over Rihanna Assault on Alleged Leaked Song
+H9:  20 Funny Things People in the 1970s Were Totally Guilty of Doing
+H10: Aspiring Singer Wins $15M Rape Lawsuit Against Grammy-Winning Producer Detail
+H11: 'Wheel Of Fortune' Guest Delivers Hilarious, Off The Rails Introduction
+H12: You Definitely Didn't Know These Fun Facts About Cardi B
+H13: Howard Stern Proposes to His Wife Beth Stern on 'Jimmy Kimmel Live!'
+H14: Shaquille O'Neal donates home to family of Atlanta boy paralyzed in shooting
+H15: Duchess Meghan Describes 'Really Challenging' Life as New Royal: I'm Not OK
+H16: Rihanna Addresses Pregnancy Rumors in New Video
+H17: Jennifer Aniston and Ellen DeGeneres Share a Pleasant TV Kiss: 'You Have Such Soft Lips'
+H18: Felicity Huffman Is Scheduled to Be Released from Prison on October 27 After Serving 13 Days
+H19: Jennifer Aniston on why she joined Instagram: 'I'm just trying to build content'
+H20: Kylie Jenner Agrees to Let Ariana Grande Sample Her Viral 'Rise and Shine' Lyric
+H21: Cailtyn Jenner, Khloe Kardashian's relationship remains strained as Caitlyn turns 70, plus more news
+H22: Miguel Cervantes' Wife Reveals Daughter, 3, 'Died in My Arms' After Entering Hospice Care
+H23: Kamille 'Cupcake' McKinney's disappearance: Reward for information on missing Alabama girl increases as police search continues
+H24: Former Deadliest Catch Star Jerod Sechrist Arrested, Charged with Heroin Possession
+H25: Tiger Woods is finally writing a memoir and it has the perfect title
+H26: Eddy Merckx Hospitalized for Serious Head Injury Following Bike Crash
+H27: Alec Baldwin's 'heart goes out to' imprisoned Felicity Huffman and husband William H. Macy
+H28: Christie's Auctioned a $40 Million Diamond. Was It Stolen?
+H29: She fought for human rights on a tiny island that banned guns. Then she was shot dead.
+H30: Chrisleys sue Georgia tax official with link to estranged daughter
+H31: Airline Passenger Faked Pregnancy by Stuffing Items Under Dress to Avoid Baggage Fee
+H32: Bob Kingsley, Country Radio Legend, Dead at 80
+H33: New Hyundai Azera Looks Pretty Gorgeous
+H34: Meghan Markle's estranged brother says 'she is only in Buckingham Palace with Harry because of her dad' after he 'paid for her education and fancy clothes'
+H35: Why President Trump's kids are probably celebrating his move to Florida
+H36: Viral Wheel of Fortune Contestant and His Wife Clarify Hilarious 'Loveless Marriage' Intro
+H37: Chick-fil-A Apologizes to Customers for Promoting National Sandwich Day   Which Is on a Sunday
+H38: This Man Is Behind Every Single Antique You See In Cracker Barrel Stores
+H39: Ellen Scares Halsey Into Confirming Relationship With Evan Peters: Watch
+H40: Kelly Ripa Jokes Son Michael Is Experiencing 'Extreme Poverty' in Brooklyn
+H41: Pinterest stock plummets on disappointing results
+H42: Mystery Woman Kissing Singer Usher Identified As Record Exec
+H43: David Eason Calls Jenelle Evans 'Stupid' After Split
+H44: Miranda Lambert Reveals the Real Reason Behind Her Secret Wedding: 'It's Not for Everybody Else'
+H45: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H46: Woman, suspect dead at 'Tarzan' actor Ron Ely's California residence
+H47: 'Tarzan' Actor Ron Ely: Actor's son allegedly killed his mother before deputies shot and killed him, sheriff's office says
+H48: James Mattis mocks Trump's bone spurs
+H49: Nearly $400M worth of cocaine and marijuana intercepted by US Coast Guard
+H50: Why Everyone in the Royal Family Is Wearing a Red Poppy Pin This Week
+H51: Donald Trump Jr. reflects on explosive 'View' chat: 'I don't think they like me much anymore'
+H52: Megyn Kelly Charts Return to Spotlight With Social-Media Venture
+H53: DNA test matches Virginia Beach man with his father after a lifelong search for answers
+H54: Virginia Beach Animal Control reminding residents to keep dogs on leashes, stepping up enforcement of law","C1: Taylor Swift Says Scooter Braun, Scott Borchetta Are Blocking Her From Playing Old Hits at AMAs
+C2: Raise Billions From Billionaires? Tax Experts Say It's Not That Simple
+C3: The world's most profitable company is about to go public
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Opinion: Baylor football back on top four years after sexual assault scandal rocked campus
+C6: Supporting your adult children can ruin your retirement plans
+C7: South Carolina teen gets life in prison for deadly elementary school shooting
+C8: Cows swept away by Hurricane Dorian found alive   but how?
+C9: Apple bans vaping apps from the App Store
+C10: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C11: 85 Thanksgiving Recipes You Can Make Ahead
+C12: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C13: General knowledge quiz: How many questions can you get right?
+C14: How much turkey do you need to buy per person?
+C15: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+C16: THEN AND NOW: What all your favorite '90s stars are doing today
+C17: Maze of tunnels reveals remains of ancient Jerusalem
+C18: Opinion: NFL should suspend Browns' Myles Garrett for rest of season   at minimum   for helmet swing
+C19: TSA stops Virginia Beach woman with loaded handgun at Norfolk International Airport
+C20: 30 Best Black Friday Deals from Costco
+C21: The Real Reason McDonald's Keeps the Filet-O-Fish on Their Menu
+C22: The most talked about movie moments of the 2010s",C19,"
+    # Input
+    User's History News:
+    H1: From cat names to fruit, here are 11 bizarre things celebrities have tried to trademark
+H2: Will Teresa Giudice and Joe Giudice Get Divorced? 'I Don't See It Working,' She Says
+H3: 50 Shelter Dogs That Need Homes Before 2020
+H4: What Judge Judy's husband got her for her 77th birthday
+H5: TobyMac says late son 'had an untamable grand personality,' shares last text exchange
+H6: 17 hours a day, 7 days a week: Cruise-ship workers describe the grueling conditions they face on the job
+H7: Jennifer Aniston Just Gave a Rare Look at Her Natural Hair Texture
+H8: Eminem Says He Sides With Chris Brown Over Rihanna Assault on Alleged Leaked Song
+H9:  20 Funny Things People in the 1970s Were Totally Guilty of Doing
+H10: Aspiring Singer Wins $15M Rape Lawsuit Against Grammy-Winning Producer Detail
+H11: 'Wheel Of Fortune' Guest Delivers Hilarious, Off The Rails Introduction
+H12: You Definitely Didn't Know These Fun Facts About Cardi B
+H13: Howard Stern Proposes to His Wife Beth Stern on 'Jimmy Kimmel Live!'
+H14: Shaquille O'Neal donates home to family of Atlanta boy paralyzed in shooting
+H15: Duchess Meghan Describes 'Really Challenging' Life as New Royal: I'm Not OK
+H16: Rihanna Addresses Pregnancy Rumors in New Video
+H17: Jennifer Aniston and Ellen DeGeneres Share a Pleasant TV Kiss: 'You Have Such Soft Lips'
+H18: Felicity Huffman Is Scheduled to Be Released from Prison on October 27 After Serving 13 Days
+H19: Jennifer Aniston on why she joined Instagram: 'I'm just trying to build content'
+H20: Kylie Jenner Agrees to Let Ariana Grande Sample Her Viral 'Rise and Shine' Lyric
+H21: Cailtyn Jenner, Khloe Kardashian's relationship remains strained as Caitlyn turns 70, plus more news
+H22: Miguel Cervantes' Wife Reveals Daughter, 3, 'Died in My Arms' After Entering Hospice Care
+H23: Kamille 'Cupcake' McKinney's disappearance: Reward for information on missing Alabama girl increases as police search continues
+H24: Former Deadliest Catch Star Jerod Sechrist Arrested, Charged with Heroin Possession
+H25: Tiger Woods is finally writing a memoir and it has the perfect title
+H26: Eddy Merckx Hospitalized for Serious Head Injury Following Bike Crash
+H27: Alec Baldwin's 'heart goes out to' imprisoned Felicity Huffman and husband William H. Macy
+H28: Christie's Auctioned a $40 Million Diamond. Was It Stolen?
+H29: She fought for human rights on a tiny island that banned guns. Then she was shot dead.
+H30: Chrisleys sue Georgia tax official with link to estranged daughter
+H31: Airline Passenger Faked Pregnancy by Stuffing Items Under Dress to Avoid Baggage Fee
+H32: Bob Kingsley, Country Radio Legend, Dead at 80
+H33: New Hyundai Azera Looks Pretty Gorgeous
+H34: Meghan Markle's estranged brother says 'she is only in Buckingham Palace with Harry because of her dad' after he 'paid for her education and fancy clothes'
+H35: Why President Trump's kids are probably celebrating his move to Florida
+H36: Viral Wheel of Fortune Contestant and His Wife Clarify Hilarious 'Loveless Marriage' Intro
+H37: Chick-fil-A Apologizes to Customers for Promoting National Sandwich Day   Which Is on a Sunday
+H38: This Man Is Behind Every Single Antique You See In Cracker Barrel Stores
+H39: Ellen Scares Halsey Into Confirming Relationship With Evan Peters: Watch
+H40: Kelly Ripa Jokes Son Michael Is Experiencing 'Extreme Poverty' in Brooklyn
+H41: Pinterest stock plummets on disappointing results
+H42: Mystery Woman Kissing Singer Usher Identified As Record Exec
+H43: David Eason Calls Jenelle Evans 'Stupid' After Split
+H44: Miranda Lambert Reveals the Real Reason Behind Her Secret Wedding: 'It's Not for Everybody Else'
+H45: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H46: Woman, suspect dead at 'Tarzan' actor Ron Ely's California residence
+H47: 'Tarzan' Actor Ron Ely: Actor's son allegedly killed his mother before deputies shot and killed him, sheriff's office says
+H48: James Mattis mocks Trump's bone spurs
+H49: Nearly $400M worth of cocaine and marijuana intercepted by US Coast Guard
+H50: Why Everyone in the Royal Family Is Wearing a Red Poppy Pin This Week
+H51: Donald Trump Jr. reflects on explosive 'View' chat: 'I don't think they like me much anymore'
+H52: Megyn Kelly Charts Return to Spotlight With Social-Media Venture
+H53: DNA test matches Virginia Beach man with his father after a lifelong search for answers
+H54: Virginia Beach Animal Control reminding residents to keep dogs on leashes, stepping up enforcement of law
+    Candidate News:
+    C1: Taylor Swift Says Scooter Braun, Scott Borchetta Are Blocking Her From Playing Old Hits at AMAs
+C2: Raise Billions From Billionaires? Tax Experts Say It's Not That Simple
+C3: The world's most profitable company is about to go public
+C4: Meghan Markle and Hillary Clinton Secretly Spent the Afternoon Together at Frogmore Cottage
+C5: Opinion: Baylor football back on top four years after sexual assault scandal rocked campus
+C6: Supporting your adult children can ruin your retirement plans
+C7: South Carolina teen gets life in prison for deadly elementary school shooting
+C8: Cows swept away by Hurricane Dorian found alive   but how?
+C9: Apple bans vaping apps from the App Store
+C10: Survivor Contestants Missy Byrd and Elizabeth Beisel Apologize For Their Actions
+C11: 85 Thanksgiving Recipes You Can Make Ahead
+C12: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+C13: General knowledge quiz: How many questions can you get right?
+C14: How much turkey do you need to buy per person?
+C15: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+C16: THEN AND NOW: What all your favorite '90s stars are doing today
+C17: Maze of tunnels reveals remains of ancient Jerusalem
+C18: Opinion: NFL should suspend Browns' Myles Garrett for rest of season   at minimum   for helmet swing
+C19: TSA stops Virginia Beach woman with loaded handgun at Norfolk International Airport
+C20: 30 Best Black Friday Deals from Costco
+C21: The Real Reason McDonald's Keeps the Filet-O-Fish on Their Menu
+C22: The most talked about movie moments of the 2010s
+
+    # Recommendation Process:
+    1. 'User's History News' contains headlines that have engaged the user, revealing their interests through one broad key theme and five specific keywords.
+    2. 'Candidate News' consists of new headlines. The order of these headlines is not relevant to their ranking.
+    3. Your objective is to select the top 10 headlines from 'Candidate News' that are most closely aligned with the user's broad theme and specific keywords as indicated in 'User's History News'.
+
+    # Recommendation Process:
+    1. Analyze 'User's History News' to identify one broad key theme and extract five specific keywords reflecting the user's interests.
+    2. For 'Candidate News', identify the main theme and extract five keywords from each headline, disregarding their initial sequence, to evaluate their relevance to the user’s interests.
+    3. Rank the 'Candidate News' headlines by relevance to the broad theme and specific keywords identified in the user's history, not by their original order.
+
+    # Output Format:
+    - Begin with: ""The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    - Include a justification for each headline's ranking, emphasizing their alignment with the broad theme and specific keywords: ""C# relates to broad theme X and includes keywords A, B, C, closely matching the user's interest as shown in headlines H#, H#, H#.""
+    - Follow this structure for each of the top 10 headlines.
+    - Limit the total output to 200 words, focusing on the alignment of the broad theme and specific keywords rather than the original sequence of 'Candidate News'.""
+    ","  The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are:
+
+C1: Taylor Swift Says Scooter Braun, Scott Borchetta Are Blocking Her From Playing Old Hits at AMAs
+
+Justification: This headline relates to the broad theme of entertainment and includes keywords such as ""Taylor Swift"" and ""AMAs,"" which are of interest to the user as indicated in their history of news engagement.
+
+C12: Opinion: Colin Kaepernick is about to get what he deserves: a chance
+
+Justification: This headline aligns with the broad theme of sports and includes keywords such as ""Colin Kaepernick,"" which is a topic of interest for the user as seen in their history of news engagement.
+
+C15: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+
+Justification: This headline is related to the broad theme of sports and includes keywords such as ""Myles Garrett"" and ""suspension,"" which are relevant to the user's interests as indicated in their history of news engagement.
+
+C16: THEN AND NOW: What all your favorite '90s stars are doing today
+
+Justification: This headline relates to the broad theme of entertainment and includes keywords such as ""90s stars,"" which are of interest to the user as seen in their history of news engagement.
+
+C17: Maze of tunnels reveals remains of ancient Jerusalem
+
+Justification: This headline aligns with the broad theme of history and includes keywords such as ""ancient Jerusalem,"" which are relevant to the user's interests as indicated in their history of news engagement.
+
+C18: Opinion: NFL should suspend Browns' Myles Garrett for rest of season   at minimum   for helmet swing
+
+Justification: This headline is related to the broad theme of sports and includes keywords such as ""Myles Garrett"" and ""NFL,"" which are topics of interest for the user as seen in their history of news engagement.
+
+C19: TSA stops Virginia Beach woman with loaded handgun at Norfolk International Airport
+
+Justification: This headline relates to the broad theme of security and includes keywords such as ""TSA"" and ""loaded handgun,"" which are relevant to the user's interests as indicated in their history of news engagement.
+
+C20: 30 Best Black Friday Deals from Costco
+
+Justification: This headline aligns with the broad theme of shopping and includes keywords such as ""Black Friday"" and ""Costco,"" which are of interest to the user as seen in their history of news engagement.
+
+C21: The Real Reason McDonald's Keeps the Filet-O-Fish on Their Menu
+
+Justification: This headline relates to the broad theme of food and includes keywords such as ""McDonald's"" and ""Filet-O-Fish,"" which are relevant to the user's interests as indicated in their history of news engagement.
+
+C22: The most talked about movie moments of the 2010s
+
+Justification: This headline aligns with the broad theme of entertainment and includes keywords such as ""movie moments"" and ""2010s,"" which are of interest to the user as seen in their history of news engagement.
+
+In conclusion, the top 10 recommended news headlines are ranked based on their relevance to the user's broad theme and specific keywords, which are revealed through their history of news engagement. These headlines cover a range of topics, including entertainment, sports, history, security, shopping, food, and movies, and are likely to be of interest to the user.",0.0,0.3333333333333333,0.14285714285714285,"C1,C12,C15,C16,C17,C18,C19,C20,C21,C22"
