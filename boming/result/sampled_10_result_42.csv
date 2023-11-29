@@ -1,0 +1,75 @@
+impression_id,history,candidate,label,input,output,nDCG@5,nDCG@10,MRR,rank
+7846,"H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.","C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.",C3,"
+    # Input
+    User's History News:
+    H1: Cause determined in Jessi Combs' fatal speed record crash
+H2: Kevin Spacey Won't Be Charged in Sexual Assault Case After Accuser Dies
+H3: Convicted ex-NFL tight end Kellen Winslow II has CTE symptoms, his attorneys say
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+H8: Iowan convicted of murder claims his life-sentence was served once he died, was revived in medical emergency. The court disagrees.
+    Candidate News:
+    C1: Queen Elizabeth Just Rode Horseback at Age 93
+C2: South Carolina teen gets life in prison for deadly elementary school shooting
+C3: 30 Best Black Friday Deals from Costco
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+
+    # Recommendation Process:
+    1. 'User's History News' contains headlines that have engaged the user, revealing their interests through one broad key theme and five specific keywords.
+    2. 'Candidate News' consists of new headlines. The order of these headlines is not relevant to their ranking.
+    3. Your objective is to select the top 10 headlines from 'Candidate News' that are most closely aligned with the user's broad theme and specific keywords as indicated in 'User's History News'.
+
+    # Recommendation Process:
+    1. Analyze 'User's History News' to identify one broad key theme and extract five specific keywords reflecting the user's interests.
+    2. For 'Candidate News', identify the main theme and extract five keywords from each headline, disregarding their initial sequence, to evaluate their relevance to the user’s interests.
+    3. Rank the 'Candidate News' headlines by relevance to the broad theme and specific keywords identified in the user's history, not by their original order.
+
+    # Output Format:
+    - Begin with: ""The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#.""
+    - Include a justification for each headline's ranking, emphasizing their alignment with the broad theme and specific keywords: ""C# relates to broad theme X and includes keywords A, B, C, closely matching the user's interest as shown in headlines H#, H#, H#.""
+    - Follow this structure for each of the top 10 headlines.
+    - Limit the total output to 200 words, focusing on the alignment of the broad theme and specific keywords rather than the original sequence of 'Candidate News'.""
+    ","  The top 10 recommended news headlines, ranked by relevance to the user's broad theme and specific keywords, are:
+
+C1: Queen Elizabeth Just Rode Horseback at Age 93
+C4: This was uglier than a brawl. And Myles Garrett deserves suspension for the rest of the year after a helmet attack.
+C3: 30 Best Black Friday Deals from Costco
+H5: Judge: Brad Pitt, others can be sued over New Orleans homes
+H7: Here Are the Biggest Deals We're Anticipating for Black Friday
+C2: South Carolina teen gets life in prison for a deadly elementary school shooting
+H6: Felicity Huffman Smiles as She Begins Community Service Following Prison Release
+H8: Iowan convicted of murder claims his life sentence was served once he died, was revived in a medical emergency. The court disagrees.
+H4: Cornell student, 18, found dead in gorge after frat party, reports say
+C7: 30 Best Black Friday Deals from Costco
+
+Justification:
+
+C1 relates to the broad theme of ""Entertainment"" and includes keywords ""Queen Elizabeth,"" which closely matches the user's interest as shown in headlines H1 and H6.
+
+C4 relates to the broad theme of ""Sports"" and includes keywords ""Myles Garrett,"" which closely matches the user's interest as shown in headline H7.
+
+C3 and C7 relate to the broad theme of ""Shopping"" and include keywords ""Black Friday,"" which closely matches the user's interest as shown in headline H7.
+
+H5 relates to the broad theme of ""Celebrity News"" and includes keywords ""Brad Pitt,"" which closely matches the user's interest as shown in headline H6.
+
+H7 relates to the broad theme of ""Shopping"" and includes keywords ""Black Friday,"" which closely matches the user's interest as shown in headline H7.
+
+H6 relates to the broad theme of ""Entertainment"" and includes keywords ""Felicity Huffman,"" which closely matches the user's interest as shown in headline H1.
+
+H8 relates to the broad theme of ""Crime"" and includes keywords ""murder,"" which closely matches the user's interest as shown in headline H2.
+
+H4 relates to the broad theme of ""Education"" and includes keywords ""Cornell student,"" which closely matches the user's interest as shown in headline H3.
+
+Overall, the top 10 recommended headlines align with the user's interests in entertainment, sports, shopping, celebrity news, and crime, as reflected in their history of news engagement.",0.5,0.5,0.3333333333333333,"C1,C4,C3,C2,C7"
