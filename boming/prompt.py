@@ -139,7 +139,6 @@ def build_prompt_template10(history, candidate):
     
     return user_inputs
 
-
 def build_prompt_template15(history, candidate):
     user_inputs = f"""
 
@@ -159,7 +158,6 @@ def build_prompt_template15(history, candidate):
     """
     
     return user_inputs
-
 
 def build_improved_prompt50(history, candidate):
     user_inputs = f"""
@@ -230,3 +228,57 @@ def build_prompt_template4(history, candidate):
     - The total output should not exceed a 200-word limit, focusing on the alignment of topics rather than the original order of 'Candidate News'."""
 
     return template4
+
+def build_prompt_template_base(history, candidate):
+    
+    template = f"""
+
+    Generate a ranked list of news headlines based on user's reading preferences.
+
+    User's History of Read Headlines:
+    {history}
+
+    List of Candidate News Headlines for Recommendation:
+    {candidate}
+
+    Task: Based on the user's history of read headlines, rank the candidate news headlines in order of their likelihood to interest the user. The ranking should predict which headlines the user is most likely to click on next.
+
+    Expected Output Format:
+    Ranked List: [Most likely to be clicked headline, Second most likely, ...]
+    """
+
+    return template
+
+def build_prompt_template_detail(history, candidate):
+    user_inputs = f"""
+    # Input:
+    User's History News:
+    {history}
+    Candidate News:
+    {candidate}
+
+    # Task Description:
+    1. 'User's History News' consists of headlines the user has engaged with, indicating their interest areas. This section is vital for recognizing common themes and specific keywords defining the user's reading preferences.
+    2. 'Candidate News' presents new headlines not yet seen by the user. The order of these headlines is random and should not influence the ranking.
+
+    # Understanding Themes and Keywords:
+    - A 'theme' is the overarching subject or topic of a news headline, such as 'technology', 'politics', or 'environment'.
+    - 'Keywords' are specific, significant words or phrases within a headline that give insight into the more detailed aspects of the theme, like 'smartphones', 'elections', or 'climate change'.
+
+    # Recommendation Process:
+    1. From each headline in 'User's History News', identify one central theme and extract five key keywords. This identification captures both the general and specific interests of the user.
+    2. For each headline in 'Candidate News', identify one primary theme and five relevant keywords, considering how they might relate to the historical themes and keywords.
+    3. Rank the 'Candidate News' headlines based on their relevance. The ranking criteria should prioritize:
+    - Headlines matching both the key themes and keywords from the user's history.
+    - Next, prioritize headlines matching several keywords.
+    - Then, headlines matching the theme.
+    - Finally, include headlines that might be of interest based on the overall user profile.
+
+    # Output Format:
+    - Begin with: "The top 10 recommended news headlines, ranked by relevance to the user's historical themes and keywords, are: C1, C2, C3, C4, C5, C6, C7, C8, C9, C10."
+    - For each headline, provide a brief justification based on its theme and keyword alignment, e.g., "C1 aligns with the theme X and includes keywords A, B, C, matching the user's interest in headlines H1, H2, H3."
+    - Follow this structure for all top 10 headlines.
+    - Limit the total output to 200 words, focusing on the alignment of themes and keywords rather than the original order of 'Candidate News'.
+    """
+
+    return user_inputs

@@ -2,6 +2,21 @@ import pandas as pd
 import numpy as np
 import re
 import os
+from prompt import *
+
+function_dispatcher = {
+    '0': build_prompt_template0,
+    '1': build_prompt_template1,
+    '2': build_prompt_template2,
+    '99': build_prompt_template99,
+    '10': build_prompt_template10,
+    '15': build_prompt_template15,
+    '50': build_improved_prompt50,
+    '4': build_prompt_template4,
+    'base': build_prompt_template_base,
+    'detail': build_prompt_template_detail,
+}
+
 
 def save2file(results_list, saved_path):
     df = pd.DataFrame.from_records(results_list)
@@ -81,7 +96,7 @@ def evaluate_one(labels, predictions):
     mrr = compute_mrr(labels, predictions)
     return ndcg5_at_k, ndcg10_at_k, mrr
 
-def cal_avg_scores(results_list, model="gpt-3.5-turbo", metrics=None, template=None, tag=None):
+def cal_avg_scores(results_list, model="gpt-3.5-turbo", metrics=None, template=None):
     """Calculate the average scores of the results."""
     if metrics is None:
         metrics = ["nDCG@5", "nDCG@10", "MRR"]
@@ -90,7 +105,6 @@ def cal_avg_scores(results_list, model="gpt-3.5-turbo", metrics=None, template=N
     avg_scores["model"] = model
     avg_scores["sample_num"] = len(results_list)
     avg_scores["template_name"] = template
-    avg_scores["tag"] = tag
     df = pd.DataFrame.from_records([avg_scores])
 
     return df
