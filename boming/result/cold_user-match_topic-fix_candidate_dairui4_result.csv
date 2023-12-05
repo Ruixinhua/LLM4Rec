@@ -9407,3 +9407,109 @@ The ranking is based on the alignment of topics between the user's history news 
 8. C10 connects to topics of politics and current events, which align with the user's interest shown in headline H1: I tried to eat like Kate Middleton for a week, but I couldn't get through it without cheating.
 
 The ranking is based on the relevance of the topics to the user's interests, rather than the original order of the candidate news headlines.","C1,C2,C5,C6,C7,C8,C9,C10,C3,C4",0.88889,0.5,0.63093,0.63093
+39255,"H1: Biden on being denied communion: 'I'm a practicing Catholic, I practice my faith'
+H2: Apple is laying the groundwork for an iPhone subscription
+H3: Heidi Klum's 2019 Halloween Costume Transformation Is Mind-Blowing   But, Like, What Is It?
+H4: Here Are the Biggest Deals We're Anticipating for Black Friday
+H5: Opinion: Clemson getting left out of first College Football Playoff top 4 'doesn't matter'","C1: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+C2: The Coolest Way to See NYC Is in a Vintage Car From the Roaring '20s on This Midtown Tour
+C3: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+C4: Women's rugby teams join forces to move ambulance
+C5: Popeyes stabbing: Suspect arrested in fatal attack after waiting in line for sandwich
+C6: Garrett-Rudolph fight invokes memories of other helmet incidents, Cowboys involved
+C7: Growth in global oil demand more than doubled in the third quarter, IEA reveals
+C8: 2020 Kia Telluride Pros and Cons Review: The Heartland Kia
+C9: Oregon may face ICE push-back on new limits for courthouse arrests
+C10: Global debt surges above $250 trillion as US, China lead way",C3,"N34069
+N33742
+N42620
+N18870
+N14434","Biden on being denied communion: 'I'm a practicing Catholic, I practice my faith'
+Apple is laying the groundwork for an iPhone subscription
+Heidi Klum's 2019 Halloween Costume Transformation Is Mind-Blowing   But, Like, What Is It?
+Here Are the Biggest Deals We're Anticipating for Black Friday
+Opinion: Clemson getting left out of first College Football Playoff top 4 'doesn't matter'","news
+finance
+lifestyle
+lifestyle
+sports","newspolitics
+finance-companies
+lifestylebuzz
+shop-holidays
+football_ncaa","Former Vice President and 2020 presidential candidate Joe Biden refused to confirm reports that he was denied communion at a South Carolina church on Sunday because of his stance on abortion, referring to the incident as his ""personal life.""
+Apple could bundle hardware upgrades with services like iCloud storage or Apple TV+ content and hardware.
+You might say she's scary good at playing dress-up, because Heidi Klum's 2019 Halloween costume is even more impressive than we could have imagined   and that's saying a lot, considering transformative Halloween costumes are kind of her thing. But this year Klum took it up one more notch as she shared her metamorphosis into,
+The Black Friday deals for 2019 have already begun leaking out. Get a sneak peek at what to expect from popular retailers like Costco, Walmart, and Best Buy. Browse our guide and use it to plan your attack for the biggest shopping event of the year.
+Defending champ Clemson would be left out of College Football Playoff if season ended today. It doesn't, though, so its No. 5 ranking doesn't matter.","N61811
+N12320
+N23513
+N49733
+N26811
+N1396
+N38235
+N62992
+N58612
+N21571","Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+The Coolest Way to See NYC Is in a Vintage Car From the Roaring '20s on This Midtown Tour
+This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+Women's rugby teams join forces to move ambulance
+Popeyes stabbing: Suspect arrested in fatal attack after waiting in line for sandwich
+Garrett-Rudolph fight invokes memories of other helmet incidents, Cowboys involved
+Growth in global oil demand more than doubled in the third quarter, IEA reveals
+2020 Kia Telluride Pros and Cons Review: The Heartland Kia
+Oregon may face ICE push-back on new limits for courthouse arrests
+Global debt surges above $250 trillion as US, China lead way","lifestyle
+travel
+sports
+video
+news
+sports
+finance
+autos
+news
+finance","lifestyleroyals
+ustravel
+football_nfl
+viral
+newscrime
+football_nfl
+markets
+autossuvs
+newsus
+markets","So cute!
+A new tour company called Nowaday, in New York City, will take you around in a restored, vintage car.
+
+The Huntley and Peterhead women's teams had to join forces to remove an ambulance stuck in the mud. The ambulance was carrying a player who got injured during a rugby match in Fraserburgh, Scotland. A remarkable example of teamwork!
+Police in Maryland have arrested a man wanted on murder charges in a stabbing outside a Popeyes restaurant last week as people waited in line for the new chicken sandwich, the Prince George's County Police Department announced early Thursday.
+The NFL world was placed on it's head in the final moments of what should have been a celebratory situation for the Cleveland Browns in Thursday night's win over the Pittsburgh Steelers. Only it's the Cleveland Browns and nice things rarely happen to that organization. A few seconds before defeating their rivals for the first time in the same season they also took out the Baltimore Ravens, all hell broke loose when defensive end Myles Garrett...
+Global oil demand in the third quarter of 2019 grew by 1.1 million barrels a day, more than double the previous quarter, according to the IEA.
+The big Kia SUV built in America for Americans is a 2020 SUV of the Year finalist
+Under a new rule enacted Thursday by Oregon Supreme Court Chief Justice Martha Walters, agents with U.S. Immigration and Customs Enforcement are forbidden from arresting immigrants inside or near the state's courthouses unless the agents first receive warrants from a judge.
+Global debt hit a fresh record above $250 trillion in the first half of 2019, with China and the U.S. accounting for more than 60% of new borrowing, the Institute of International Finance said.","  The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are:
+
+1. C1: Archie's Photo Album: Prince Harry, Duchess Meghan's Royal Baby
+2. C7: Growth in global oil demand more than doubled in the third quarter, IEA reveals
+3. C9: Oregon may face ICE push-back on new limits for courthouse arrests
+4. C8: 2020 Kia Telluride Pros and Cons Review: The Heartland Kia
+5. C5: Popeyes stabbing: Suspect arrested in fatal attack after waiting in line for sandwich
+6. C2: The Coolest Way to See NYC Is in a Vintage Car From the Roaring '20s on This Midtown Tour
+7. C4: Women's rugby teams join forces to move ambulance
+8. C6: Garrett-Rudolph fight invokes memories of other helmet incidents, Cowboys involved
+9. C3: This was uglier than a brawl. And Myles Garrett deserves suspension for rest of year after helmet attack.
+10. C10: Global debt surges above $250 trillion as US, China lead way
+
+The ranking is based on the alignment of topics between the 'Candidate News' headlines and the user's interests, as reflected in their history of engaging with news headlines.
+
+C1, Archie's Photo Album, is ranked first as it relates to the user's interest in royal family news, as seen in their engagement with H1, Biden on being denied communion.
+
+C7, Growth in global oil demand, is ranked second as it aligns with the user's interest in economic and business news, as indicated by their engagement with H4, Here Are the Biggest Deals We're Anticipating for Black Friday.
+
+C9, Oregon may face ICE push-back on new limits for courthouse arrests, is ranked third as it relates to the user's interest in political and social issues, as seen in their engagement with H5, Opinion: Clemson getting left out of first College Football Playoff top 4 'doesn't matter'.
+
+C8, 2020 Kia Telluride Pros and Cons Review, is ranked fourth as it aligns with the user's interest in consumer and automotive news, as indicated by their engagement with H2, Apple is laying the groundwork for an iPhone subscription.
+
+C5, Popeyes stabbing, is ranked fifth as it relates to the user's interest in crime and law enforcement news, as seen in their engagement with H3, Heidi Klum's 2019 Halloween Costume Transformation Is Mind-Blowing   But, Like, What Is It?
+
+The remaining headlines, C2, C4, C6, and C10, are ranked sixth, seventh, eighth, and tenth, respectively, as they align with the user's interests in entertainment, sports, and global affairs, as indicated by their engagement with H1, H3, and H5.
+
+In summary, the ranking is based on the relevance of the 'Candidate News' headlines to the user's interests, as reflected in their history of engaging with news headlines.","C1,C7,C8,C5,C2,C4,C6,C3,C10,C9",0.22222,0.125,0.0,0.31546
