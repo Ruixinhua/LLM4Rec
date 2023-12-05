@@ -1,0 +1,2 @@
+group_auc,mean_mrr,ndcg_5,ndcg_10,model,sample_num
+47.78,28.93,27.9,45.04,llama2-70b-chat,100

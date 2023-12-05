@@ -282,3 +282,79 @@ def build_prompt_template_detail(history, candidate):
     """
 
     return user_inputs
+
+
+def dairui_4(history, candidate):
+    user_input = f"""# Input:
+    User's History News:
+    {history}
+    Candidate News:
+    {candidate}
+
+    # Task Description:
+    1. 'User's History News' features headlines that have previously engaged the user, signaling their interests.
+    2. 'Candidate News' presents a set of headlines not yet seen by the user. The sequence of these headlines should not influence the ranking.
+    3. Your objective is to impartially select the top 10 headlines from 'Candidate News' that most closely resonate with the user's interests as reflected in 'User's History News'.
+
+    # Recommendation Process:
+    1. Independently assess 'User's History News' to deduce the user's core interested topics.
+    2. Scrutinize the topics of 'Candidate News', disregarding their initial order, to gauge their relevance to the user’s interests.
+    3. Strategically rank the 'Candidate News' headlines by relevance, not by their original placement in the list.
+
+    # Output Format:
+    - Start with the phrase: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#."
+    - Proceed with a relevance-based justification for each headline's ranking, such as: "C# pertains to topics X, Y, Z, which align with the user's interest shown in headlines H#, H#, H#."
+    - Maintain this structure for each of the top 10 headlines.
+    - The total output should not exceed a 200-word limit, focusing on the alignment of topics rather than the original order of 'Candidate News'."""
+
+    return user_input
+
+def dairui_15(history, candidate):
+    user_input = f"""News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
+    # INPUT
+    USER'S HISTORY NEWS BEGIN
+    {history}
+    USER'S HISTORY NEWS END
+    CANDIDATE NEWS BEGIN
+    {candidate}
+    CANDIDATE NEWS END
+    # Recommendation Process:
+    1. Analyze User's History News:
+    1.1 Extract a collection of keywords from all 'User's History News'. These keywords can accurately describe and represent the specific news item.
+    1.2 Group these keywords into clusters representing related concepts or meanings, known as 'topic'. A topic typically consists of frequently co-occurring words reflecting underlying topics or discussions. For example, a cluster including words like 'NBA', 'player', and 'match' closely relates to the concept of 'sports'. If a user's historical browsing news frequently involves these words, it implies that they are interested in 'sports'.
+    1.3 Analyze the keyword collection to summarize and infer topics that the user is interested in.
+    2. Match Candidate News with User's Interests:
+    2.1 Extract keywords from each 'Candidate News'. These keywords can accurately describe and represent the specific news item.
+    2.2 Analyze how well the keywords extracted from each Candidate News match the user's topics of interest and recommend news based on this alignment INSTEAD OF the 'CANDIDATE NEWS' sequence order.
+    2.3 This alignment is defined by how closely the keywords in a candidate news item relate to the corresponding topic. For example, if a user is interested in 'sports' and a candidate news item mentions words like 'NBA' and 'player', it can be considered a perfect match for the user's interest. Conversely, if a candidate news item focuses on topics like 'dog' and 'cat' related to 'pets', it would not match the user's interest in 'sports' and would rank lower in the recommendation list.
+    # Output Format:
+    Rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#."
+    # Here is the output:
+    Output the recommendation list based on the matching topic between the 'CANDIDATE NEWS' and 'User's History News'. DON'T be influenced by the 'CANDIDATE NEWS' sequence order. DON'T give the news a higher rank because the news appears in the front of the 'CANDIDATE NEWS' set."""
+
+    return user_input
+
+def dairui_16(history, candidate):
+    user_input = f"""News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
+    # INPUT
+    USER'S HISTORY NEWS BEGIN
+    {history}
+    USER'S HISTORY NEWS END
+    CANDIDATE NEWS BEGIN
+    {candidate}
+    CANDIDATE NEWS END
+    # Recommendation Process:
+    1. Analyze User's History News:
+    1.1 Extract a collection of keywords from all 'User's History News'. These keywords can accurately describe and represent the specific news item.
+    1.2 Group these keywords into clusters representing related concepts or meanings, known as 'topic'. A topic typically consists of frequently co-occurring words reflecting underlying topics or discussions. For example, a cluster including words like 'NBA', 'player', and 'match' closely relates to the concept of 'sports'. If a user's historical browsing news frequently involves these words, it implies that they are interested in 'sports'.
+    1.3 Analyze the keyword collection to summarize and infer topics that the user is interested in.
+    2. Match Candidate News with User's Interests:
+    2.1 Extract keywords from each 'Candidate News'. These keywords can accurately describe and represent the specific news item.
+    2.2 Analyze how well the keywords extracted from each Candidate News match the user's topics of interest and recommend news based on this alignment INSTEAD OF the 'CANDIDATE NEWS' sequence order.
+    2.3 This alignment is defined by how closely the keywords in a candidate news item relate to the corresponding topic. For example, if a user is interested in 'sports' and a candidate news item mentions words like 'NBA' and 'player', it can be considered a perfect match for the user's interest. Conversely, if a candidate news item focuses on topics like 'dog' and 'cat' related to 'pets', it would not match the user's interest in 'sports' and would rank lower in the recommendation list.
+    # Output Format:
+    Summarize the user's interest and rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are C#, C#, C#, C#, C#, C#, C#, C#, C#, C#." Explain the ranking results.
+    # Here is the output:
+    Output the recommendation list based on the matching topic between the 'CANDIDATE NEWS' and 'User's History News'. DON'T be influenced by the 'CANDIDATE NEWS' sequence order. DON'T give the news a higher rank because the news appears in the front of the 'CANDIDATE NEWS' set."""
+
+    return user_input

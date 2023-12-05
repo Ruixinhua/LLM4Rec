@@ -15,6 +15,9 @@ function_dispatcher = {
     '4': build_prompt_template4,
     'base': build_prompt_template_base,
     'detail': build_prompt_template_detail,
+    'dairui4': dairui_4,
+    'dairui15': dairui_15,
+    'dairui16': dairui_16,
 }
 
 
