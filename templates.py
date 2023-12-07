@@ -17,9 +17,9 @@ ${input}
 
 template1 = """# Input:
 User's History News:
-{{history}}
+${history}
 Candidate News:
-{{candidate}}
+${candidate}
 
 # Task Description:
 1. 'User's History News' encompasses headlines that have previously engaged users, reflecting their interests. 
@@ -38,9 +38,9 @@ Candidate News:
 
 template2 = """# Input:
 User's History News:
-{{history}}
+${history}
 Candidate News:
-{{candidate}}
+${candidate}
 
 # Task Description:
 1. 'User's History News' contains headlines that have captured the user's attention previously, indicating their areas of interest.
@@ -60,9 +60,9 @@ Candidate News:
 
 template3 = """# Input:
 User's History News:
-{{history}}
+${history}
 Candidate News:
-{{candidate}}
+${candidate}
 
 # Task Description:
 1. 'User's History News' contains headlines that have captured the user's attention previously, indicating their areas of interest.
@@ -82,9 +82,9 @@ Candidate News:
 
 template4 = """# Input:
 User's History News:
-{{history}}
+${history}
 Candidate News:
-{{candidate}}
+${candidate}
 
 # Task Description:
 1. 'User's History News' features headlines that have previously engaged the user, signaling their interests.
@@ -105,10 +105,10 @@ Candidate News:
 template5 = """I want you to act as a personalized news recommendation system. News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first; and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. I will give you the INPUT first as follows:
 # INPUT BEGIN
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # INPUT END
 # Recommendation Process:
@@ -133,10 +133,10 @@ Please replace '#topic1' and '#topic2' with specific topics, '#keyword1' and '#k
 template6 = """I want you to act as a personalized news recommendation system. News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first; and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. I will give you the INPUT as follows:
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Extract Keywords from News Content: Begin by extracting keywords that accurately describe and represent each news item. These keywords should capture the essence of the news content.
@@ -162,10 +162,10 @@ DON'T let the sequence order of the 'CANDIDATE NEWS' influence you.
 template7 = """News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline.
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Extract Keywords from News Content: Begin by extracting keywords that accurately describe and represent each news item. These keywords should capture the essence of the news content.
@@ -188,10 +188,10 @@ Think step by step and give your answer.
 template8 = """News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline.
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Extract Keywords from News Content: Begin by extracting keywords that accurately describe and represent each news item. These keywords should capture the essence of the news content.
@@ -213,10 +213,10 @@ CANDIDATE NEWS END
 template9 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -232,10 +232,10 @@ CANDIDATE NEWS END
 template10 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -252,10 +252,10 @@ Think Step by Step and Output the recommendation in a list."""
 template11 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -272,10 +272,10 @@ Output the recommendation list based on the matching topic between the 'CANDIDAT
 template12 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -296,10 +296,10 @@ Output the recommendation list based on the matching topic between the 'CANDIDAT
 template14 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -320,10 +320,10 @@ Output the recommendation list based on the matching topic between the 'CANDIDAT
 template15 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -342,10 +342,10 @@ Output the recommendation list based on the matching topic between the 'CANDIDAT
 template16 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
 USER'S HISTORY NEWS BEGIN
-{{history}}
+${history}
 USER'S HISTORY NEWS END
 CANDIDATE NEWS BEGIN
-{{candidate}}
+${candidate}
 CANDIDATE NEWS END
 # Recommendation Process:
 1. Analyze User's History News:
@@ -357,6 +357,6 @@ CANDIDATE NEWS END
 2.2 Analyze how well the keywords extracted from each Candidate News match the user's topics of interest and recommend news based on this alignment INSTEAD OF the 'CANDIDATE NEWS' sequence order.
 2.3 This alignment is defined by how closely the keywords in a candidate news item relate to the corresponding topic. For example, if a user is interested in 'sports' and a candidate news item mentions words like 'NBA' and 'player', it can be considered a perfect match for the user's interest. Conversely, if a candidate news item focuses on topics like 'dog' and 'cat' related to 'pets', it would not match the user's interest in 'sports' and would rank lower in the recommendation list.
 # Output Format:
-Summarize the user's interest and rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are C#, C#, C#, C#, C#, C#, C#, C#, C#, C#." Explain the ranking results.
+Summarize the user's interest and rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>". Explain the ranking results.
 # Here is the output:
 Output the recommendation list based on the matching topic between the 'CANDIDATE NEWS' and 'User's History News'. DON'T be influenced by the 'CANDIDATE NEWS' sequence order. DON'T give the news a higher rank because the news appears in the front of the 'CANDIDATE NEWS' set."""

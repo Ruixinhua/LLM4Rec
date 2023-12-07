@@ -1,0 +1,8 @@
+model,template_no,data_group,group_auc,mean_mrr,ndcg_5,ndcg_10,in_order_ratio
+random,,sample400by_ratio,50.42,29.97,29.74,45.96,
+gpt-4-0613,16.0,sample400by_ratio,68.11,46.75,49.76,59.25,0.02
+gpt-4-0613,4.0,sample400by_ratio,68.11,46.51,50.33,59.07,0.0
+LSTUR,baseline,sample400by_ratio,67.6667,44.0279,47.742,57.222,--
+NAML,baseline,sample400by_ratio,66.7778,43.5799,47.8442,56.8581,--
+NPA,baseline,sample400by_ratio,65.5833,43.591,46.7024,56.7925,--
+NRMS,baseline,sample400by_ratio,66.3333,43.2254,47.0939,56.5571,--
