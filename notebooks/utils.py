@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import random
-from common import evaluate_one
+from common import evaluate_one, load_api_key
 
 
 def evaluate_performance(performance, metric_cols=None):
@@ -14,6 +14,12 @@ def evaluate_performance(performance, metric_cols=None):
     tmp_list = performance.copy() + [["avg_value"] + avg_values]
     performance_df = pd.DataFrame.from_records(tmp_list, columns=["ID"] + metric_cols)
     return performance_df
+
+
+def set_openai_key():
+    import openai
+    openai.api_key = load_api_key()
+    openai.organization = 'org-3Btx7SoUaviVtc7JNH6nKeub'
 
 
 def seed_everything(seed=42):

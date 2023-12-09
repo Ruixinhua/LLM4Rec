@@ -3,7 +3,7 @@ You serve as a personalized news recommendation system.
 {{~/system}}
 
 {{#user~}}
-${input}
+${prompt_temp}
 {{~/user}}
 
 {{#assistant~}}
@@ -89,7 +89,7 @@ ${candidate}
 # Task Description:
 1. 'User's History News' features headlines that have previously engaged the user, signaling their interests.
 2. 'Candidate News' presents a set of headlines not yet seen by the user. The sequence of these headlines should not influence the ranking.
-3. Your objective is to impartially select the top 10 headlines from 'Candidate News' that most closely resonate with the user's interests as reflected in 'User's History News'.
+3. Your objective is to select the top 10 headlines from 'Candidate News' that most closely resonate with the user's interests as reflected in 'User's History News'.
 
 # Recommendation Process:
 1. Independently assess 'User's History News' to deduce the user's core interested topics.
@@ -99,8 +99,7 @@ ${candidate}
 # Output Format:
 - Start with the phrase: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests, are: C#, C#, C#, C#, C#, C#, C#, C#, C#, C#."
 - Proceed with a relevance-based justification for each headline's ranking, such as: "C# pertains to topics X, Y, Z, which align with the user's interest shown in headlines H#, H#, H#."
-- Maintain this structure for each of the top 10 headlines.
-- The total output should not exceed a 200-word limit, focusing on the alignment of topics rather than the original order of 'Candidate News'."""
+- Focusing on the alignment of topics rather than the original order of 'Candidate News'."""
 
 template5 = """I want you to act as a personalized news recommendation system. News recommendation involves two main types of data: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first; and 'CANDIDATE NEWS', which are the potential news headlines waiting to be recommended. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. I will give you the INPUT first as follows:
 # INPUT BEGIN
@@ -341,12 +340,11 @@ Output the recommendation list based on the matching topic between the 'CANDIDAT
 
 template16 = """News recommendation involves two main data types: 'USER'S HISTORY NEWS', which includes news headlines previously clicked by a user, sorted by the time of click, with earlier clicks appearing first, and 'CANDIDATE NEWS'. The recommendation process entails summarizing users' preferences and interests based on their historical clicks, then filtering and ranking candidate news according to how well they match these preferences and interests, with higher relevance leading to higher ranking. The format of 'USER'S HISTORY NEWS' is in 'H#: #news', where 'H#' is the ID of the news and '#news' contains the news headline. The format of 'CANDIDATE NEWS' is in 'C#: #news', where 'C#' is the ID of the news and '#news' contains the news headline. 
 # INPUT
-USER'S HISTORY NEWS BEGIN
+## User's History News
 ${history}
-USER'S HISTORY NEWS END
-CANDIDATE NEWS BEGIN
+## Candidate News
 ${candidate}
-CANDIDATE NEWS END
+
 # Recommendation Process:
 1. Analyze User's History News:
 1.1 Extract a collection of keywords from all 'User's History News'. These keywords can accurately describe and represent the specific news item.
@@ -357,6 +355,4 @@ CANDIDATE NEWS END
 2.2 Analyze how well the keywords extracted from each Candidate News match the user's topics of interest and recommend news based on this alignment INSTEAD OF the 'CANDIDATE NEWS' sequence order.
 2.3 This alignment is defined by how closely the keywords in a candidate news item relate to the corresponding topic. For example, if a user is interested in 'sports' and a candidate news item mentions words like 'NBA' and 'player', it can be considered a perfect match for the user's interest. Conversely, if a candidate news item focuses on topics like 'dog' and 'cat' related to 'pets', it would not match the user's interest in 'sports' and would rank lower in the recommendation list.
 # Output Format:
-Summarize the user's interest and rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>". Explain the ranking results.
-# Here is the output:
-Output the recommendation list based on the matching topic between the 'CANDIDATE NEWS' and 'User's History News'. DON'T be influenced by the 'CANDIDATE NEWS' sequence order. DON'T give the news a higher rank because the news appears in the front of the 'CANDIDATE NEWS' set."""
+Summarize the user's interest and rank candidate news according to their relevance to the user's interest in the format: "The top 10 recommended news headlines, ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>". Explain the ranking results."""
