@@ -1,5 +1,5 @@
 gpt_template = """{{#system~}}
-You serve as a personalized news recommendation system.
+${system_instruction}
 {{~/system}}
 
 {{#user~}}
@@ -7,7 +7,7 @@ ${prompt_temp}
 {{~/user}}
 
 {{#assistant~}}
-{{gen 'rank' temperature=${temperature} max_tokens=${max_tokens}}}
+{{gen 'output' temperature=${temperature} max_tokens=${max_tokens}}}
 {{~/assistant}}
 """
 

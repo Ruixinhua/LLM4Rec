@@ -56,8 +56,10 @@ def run_recommender(prompt_template, **kwargs):
     temperature = kwargs.get("temperature", 0)
     max_tokens = kwargs.get("max_tokens", 2048)
     model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True)
+    system_instruction = kwargs.get("system_instruction", "You serve as a personalized news recommendation system.")
     template = Template(gpt_template).safe_substitute(
-        {"temperature": temperature, "prompt_temp": prompt_template, "max_tokens": max_tokens}
+        {"temperature": temperature, "prompt_temp": prompt_template, "max_tokens": max_tokens,
+         "system_instruction": system_instruction}
     )
     epoch = kwargs.get("epoch", None)
     generated_output_path = f"generated_data/prompt_tuning/{recommender_model}/"
@@ -76,7 +78,7 @@ def run_recommender(prompt_template, **kwargs):
         line = {col: samples.loc[index, col] for col in data_cols}
         full_prompt = Template(template).safe_substitute(history=line["history"], candidate=line["candidate"])
         line["full_prompt"] = full_prompt
-        line["output"] = guidance(full_prompt, llm=model, silent=True)()["rank"]
+        line["output"] = guidance(full_prompt, llm=model, silent=True)()["output"]
         line["rank"] = ','.join(extract_output(line["output"], line["candidate"]))
         output_list, label_list = convert2list(line["rank"], line["label"], line["candidate"])
         in_order_ratio += 1 if is_descending(output_list[np.nonzero(output_list)[0]]) else 0
