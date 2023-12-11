@@ -24,7 +24,8 @@ data_cols = ["impression_id","history","candidate","label","history_news_id","hi
 
 
 def run(func, tag):
-    for i in range(1, 5):
+    # for i in range(1, 5):
+    for i in [5]:
         folder_path = f"../notebooks/test_group/variant{i}"
 
         for filename in os.listdir(folder_path):
