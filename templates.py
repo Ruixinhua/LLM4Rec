@@ -7,7 +7,7 @@ ${prompt_temp}
 {{~/user}}
 
 {{#assistant~}}
-{{gen 'output' temperature=${temperature} max_tokens=${max_tokens}}}
+{{gen 'output' temperature=${temperature} max_tokens=${max_tokens} seed=${seed}}}
 {{~/assistant}}
 """
 

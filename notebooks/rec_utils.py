@@ -1,11 +1,14 @@
 import os
+import re
+import time
 import json
 import guidance
-import urllib.request
+import openai
 
 import metric_utils as module_metric
 import pandas as pd
 import numpy as np
+import urllib.request
 from string import Template
 from tqdm import tqdm
 import sys
@@ -46,6 +49,22 @@ def request_llama(data, temp):
         return body['choices'][0]['message']['content']
 
 
+def request_gpt(messages, model="gpt-3.5-turbo", **model_params):
+    """Set up the Openai API key using openai.api_key = api_key"""
+    try:
+        chat_completion = openai.ChatCompletion.create(
+            model=model, messages=messages, **model_params
+        )
+        content = chat_completion.choices[0].message["content"]
+        if content is None:
+            time.sleep(20)
+            content = request_gpt(messages, model, **model_params)
+        return content
+    except:
+        time.sleep(20)
+        return request_gpt(messages, model, **model_params)
+
+
 def run_recommender(prompt_template, **kwargs):
     data_group = kwargs.get("data_group", "sample100by_ratio")
     samples = kwargs.get("samples", pd.read_csv(f"valid/{data_group}.csv"))
@@ -55,21 +74,28 @@ def run_recommender(prompt_template, **kwargs):
     recommender_model = kwargs.get("recommender", "gpt-3.5-turbo")
     temperature = kwargs.get("temperature", 0)
     max_tokens = kwargs.get("max_tokens", 2048)
-    model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True)
+    llm_seed = kwargs.get("llm_seed", 42)
+    caching = kwargs.get("caching", True)
+    openai.api_key = load_api_key()
+    model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True, caching=caching)
     system_instruction = kwargs.get("system_instruction", "You serve as a personalized news recommendation system.")
+    llm_params = {
+        "temperature": temperature, "max_tokens": max_tokens, "seed": llm_seed
+    }
     template = Template(gpt_template).safe_substitute(
         {"temperature": temperature, "prompt_temp": prompt_template, "max_tokens": max_tokens,
-         "system_instruction": system_instruction}
+         "system_instruction": system_instruction, "seed": llm_seed}
     )
     epoch = kwargs.get("epoch", None)
     generated_output_path = f"generated_data/prompt_tuning/{recommender_model}/"
     if epoch is not None:
-        generated_output_path += f"epoch_{epoch}.csv"
+        generated_output_path += f"epoch_{epoch}_{llm_seed}.csv"
     else:
         generated_output_path += f"default.csv"
     generated_output_path = kwargs.get("generated_output_path", generated_output_path)
-    score_path = f"result/prompt_tuning/{recommender_model}/epoch_{epoch}.csv"
+    score_path = f"result/prompt_tuning/{recommender_model}/epoch_{epoch}_{llm_seed}.csv"
     score_path = kwargs.get("score_path", score_path)
+    use_guidance = kwargs.get("use_guidance", True)
     os.makedirs(os.path.dirname(generated_output_path), exist_ok=True)
     os.makedirs(os.path.dirname(score_path), exist_ok=True)
     results = []
@@ -77,8 +103,13 @@ def run_recommender(prompt_template, **kwargs):
     for index in tqdm(samples.index, total=len(samples)):
         line = {col: samples.loc[index, col] for col in data_cols}
         full_prompt = Template(template).safe_substitute(history=line["history"], candidate=line["candidate"])
+        if use_guidance:
+            line["output"] = guidance(full_prompt, llm=model, silent=True)()["output"]
+        else:
+            user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
+            full_prompt = [{"role": "system", "content": system_instruction}, {"role": "user", "content": user_content}]
+            line["output"] = request_gpt(full_prompt, model=recommender_model, **llm_params)
         line["full_prompt"] = full_prompt
-        line["output"] = guidance(full_prompt, llm=model, silent=True)()["output"]
         line["rank"] = ','.join(extract_output(line["output"], line["candidate"]))
         output_list, label_list = convert2list(line["rank"], line["label"], line["candidate"])
         in_order_ratio += 1 if is_descending(output_list[np.nonzero(output_list)[0]]) else 0

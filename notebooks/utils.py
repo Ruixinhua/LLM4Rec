@@ -48,11 +48,12 @@ def unique_in_order(iterable):
 
 
 def extract_output(output, candidates):
-    pattern = r"<START>(.+?)<END>"
-    extracted_text = re.search(pattern, output)
+    extracted_text = re.search(r"<START>(.+?)<END>", output)
     # Check if the pattern was found and extract the group
-    ranks = extracted_text.group(1) if extracted_text else output
-    ranks = unique_in_order(re.findall(r"C\d+", ranks))
+    output = extracted_text.group(1) if extracted_text else output
+    extracted_text = re.search(r'Ranked news: ([^\n]+)', output)
+    output = extracted_text.group(1) if extracted_text else output
+    ranks = unique_in_order(re.findall(r"C\d+", output))
     if len(ranks) == 0:
         return extract_raw_output(output, candidates)
     return ranks

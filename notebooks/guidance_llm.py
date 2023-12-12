@@ -20,19 +20,24 @@ if __name__ == "__main__":
     samples = sampled_df.sample(num)
     model_name = args.get("model_name", "gpt-3.5-turbo")
     temperature = args.get("temperature", 0)
-    suffix = f"template-{template_name}_{model_name}_temperature-{temperature}_{variant_name}"
-    generated_data_root = f"generated_data/{data_root_dir}_{num}"
+    llm_seed = args.get("llm_seed", 42)
+    suffix = f"template-{template_name}_seed-{llm_seed}_{variant_name}{args.get('suffix', '')}"
+    generated_data_root = f"generated_data/{model_name}/{data_root_dir}_{num}"
     os.makedirs(generated_data_root, exist_ok=True)
     score_root = f"result/{data_root_dir}_{num}"
     generated_output_path = f"{generated_data_root}/{suffix}.csv"
     os.makedirs(score_root, exist_ok=True)
-    score_path = f"{score_root}/{suffix}.csv"
+    score_path = f"{score_root}/{model_name}/{suffix}.csv"
     user_template = getattr(module_templates, f"template_{template_name}")
+    max_tokens = args.get("max_tokens", 2048)
+    caching = args.get("caching", True)
     params = {
-        "samples": samples, "recommender": model_name, "temperature": temperature,
-        "generated_output_path": generated_output_path, "score_path": score_path
+        "samples": samples, "recommender": model_name, "temperature": temperature, "llm_seed": llm_seed,
+        "generated_output_path": generated_output_path, "score_path": score_path, "max_tokens": max_tokens,
+        "caching": caching, "use_guidance": args.get("use_guidance", True)
     }
     df = run_recommender(user_template, **params)
     df["template_name"] = template_name
     df["data_group"] = variant_name
+    df["llm_seed"] = llm_seed
     df.to_csv(score_path, index=False)

@@ -71,13 +71,14 @@ def build_optimizer(**kwargs):
     optimizer = kwargs.get("optimizer", "gpt-3.5-turbo-1106")
     sample_num = kwargs.get('sample_num', 1)
     valid_samples = kwargs.get("samples", pd.read_csv(f"valid/sample100by_ratio.csv"))
+    llm_seed = kwargs.get("llm_seed", 42)
     valid_samples = valid_samples.sample(n=kwargs.get("valid_sample_num", 100), random_state=42)
     middle_name = f"{recommender}--{optimizer}--{kwargs.get('tag', 'naive-format')}--sample_num-{sample_num}"
     print(middle_name)
     initial_prompt = getattr(module_instruction, kwargs.get("initial_prompt", "initial_prompt"))
     generated_output_path = f"generated_data/prompt_tuning/{middle_name}/epoch_0.csv"
     score_path = f"result/prompt_tuning/{middle_name}/epoch_0.csv"
-    initial_result = run_recommender(initial_prompt, recommender=recommender, epoch=0,
+    initial_result = run_recommender(initial_prompt, recommender=recommender, epoch=0, llm_seed=llm_seed,
                                      generated_output_path=generated_output_path, score_path=score_path)
     avg_performance = cal_avg_performance(initial_result)
     prompt_optimizer = guidance.llms.OpenAI(optimizer, api_key=load_api_key(), chat_mode=True)
@@ -103,7 +104,7 @@ def build_optimizer(**kwargs):
         prompt_params = {
             "guide_instruction": guide_instruction, "initial_prompt": initial_prompt, "best_prompt": initial_prompt,
             "observe_instruction": observe_instruction, "samples": samples, "temperature": temperature,
-            "max_tokens": max_tokens
+            "max_tokens": max_tokens , "sample_num": sample_num
         }
         prompt4opt = build_prompt(**prompt_params)
         go_on = True
@@ -139,7 +140,7 @@ def build_optimizer(**kwargs):
         score_path = f"result/prompt_tuning/{middle_name}/epoch_{epoch+1}.csv"
         current_result = run_recommender(current_prompt, recommender=recommender, optimizer=optimizer, epoch=epoch+1,
                                          generated_output_path=generated_output_path, score_path=score_path,
-                                         samples=valid_samples)
+                                         samples=valid_samples, llm_seed=llm_seed)
         avg_performance = cal_avg_performance(current_result)
         record = [datetime.now().strftime("%Y-%m-%d %H:%M:%S"), epoch+1, current_prompt] + current_result[[
             "group_auc", "mean_mrr", "ndcg_5", "ndcg_10"]].loc[0].tolist() + [avg_performance]
