@@ -1,10 +1,66 @@
-def build_prompt_template0(history, candidate):
-    user_inputs = f"""
+from string import Template
+
+template_init = Template("""Based on the user's news history, think step by step and recommend candidate news articles.
+# Input
+## User's History News
+${history}
+## Candidate News
+${candidate}
+# Output Format
+Rank candidate news based on the user's history news in the format: "Ranked news: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>".""")
+
+template_final = Template("""# Input:
+User's History News:
+${history}
+Candidate News:
+${candidate}
+
+# Task Description:
+1. 'User's History News' features headlines that have previously engaged the user, signaling their interests.
+2. 'Candidate News' presents a set of headlines not yet seen by the user. The sequence of these headlines should not influence the ranking.
+3. Your objective is to select the top 10 headlines from 'Candidate News' that most closely resonate with the user's interests as reflected in 'User's History News'.
+
+# Recommendation Process:
+1. Independently assess 'User's History News' to deduce the user's core interested topics.
+2. Scrutinize the topics of 'Candidate News', disregarding their initial order, to gauge their relevance to the user’s interests.
+3. Strategically rank the 'Candidate News' headlines by relevance, not by their original placement in the list.
+
+# Output Format:
+- Rank candidate news based on the user's history news in the format: "Ranked news: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>".
+- Focusing on the alignment of topics rather than the original order of 'Candidate News'.
+- The model must also summarize the user's interests and explain the recommendation results.
+""")
+
+template_best_5074 = Template("""Based on the user's news history, analyze and recommend candidate news articles that align with the user's interests. The recommendation should be made solely based on the semantic relevance of the user's interests to the candidate news.
+
+# Task Description
+The goal is to recommend news articles to a user based on their history of news interactions. 'User's History News' consists of articles the user has previously shown interest in, while 'Candidate News' includes potential articles the user may find engaging. The recommendation must focus on the semantic alignment between the user's interests and the candidate news, disregarding the order in which the candidate news is presented.
+
+# Recommendation Process
+1. Analyze 'User's History News' to extract and summarize the user's interests into topics.
+2. Group semantically similar keywords from the user's history into "Topics" that represent the user's areas of interest.
+3. Extract keywords from 'Candidate News' and evaluate how well they semantically match the user's topics of interest.
+4. Ensure that the recommendation is not influenced by the sequence of 'Candidate News' but solely by the semantic relevance to the user's interests.
+
+# Input
+## User's History News
+${history}
+## Candidate News
+${candidate}
+
+# Output Format
+Summarize the user's interests and rank candidate news according to their relevance to the user's interests. Provide an explanation for the ranking and relevance of each candidate news to the user's interests. Use the following format for the recommendation results:
+
+"Candidate news ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>"
+
+""")
+
+template0 = Template("""
     # Input
     User's History News:
-    {history}
+    ${history}
     Candidate News:
-    {candidate}
+    ${candidate}
 
     # Recommendation Process:
     1. 'User's History News' contains headlines that have engaged the user, revealing their interests through one broad key theme and five specific keywords.
@@ -21,17 +77,15 @@ def build_prompt_template0(history, candidate):
     - Include a justification for each headline's ranking, emphasizing their alignment with the broad theme and specific keywords: "C# relates to broad theme X and includes keywords A, B, C, closely matching the user's interest as shown in headlines H#, H#, H#."
     - Follow this structure for each of the top 10 headlines.
     - Limit the total output to 200 words, focusing on the alignment of the broad theme and specific keywords rather than the original sequence of 'Candidate News'."
-    """
+    """)
 
-    return user_inputs
 
-def build_prompt_template1(history, candidate):
-    user_inputs = f"""
+template1 = Template("""
     # Input:
     User's History News:
-    {history}
+    ${history}
     Candidate News:
-    {candidate}
+    ${candidate}
 
     # Task Description:
     1. 'User's History News' features headlines that have previously engaged the user, signaling their interests through key themes and specific keywords.
@@ -48,18 +102,15 @@ def build_prompt_template1(history, candidate):
     - Provide a relevance-based justification for each headline's ranking, such as: "C# pertains to key theme X and includes keywords A, B, C, aligning with the user's interest shown in headlines H#, H#, H#."
     - Maintain this structure for each of the top 10 headlines.
     - The total output should not exceed a 200-word limit, focusing on the alignment of key themes and specific keywords rather than the original order of 'Candidate News'.
-    """
+    """)
 
-    return user_inputs
 
-def build_prompt_template2(history, candidate):
-    
-    user_inputs = f"""
+template2 = Template("""
     # Input:
     User's History News:
-    {history}
+    ${history}
     Candidate News:
-    {candidate}
+    ${candidate}
 
     # Task Description:
     1. 'User's History News' features headlines that have previously engaged the user, signaling their interests through specific keywords.
@@ -76,9 +127,8 @@ def build_prompt_template2(history, candidate):
     - Provide a relevance-based justification for each headline's ranking, such as: "C# includes keywords A, B, C, aligning with the user's interest shown in headlines H#, H#, H#."
     - Maintain this structure for each of the top 10 headlines.
     - The total output should not exceed a 200-word limit, focusing on the alignment of specific keywords rather than the original order of 'Candidate News'.
-    """
+    """)
 
-    return user_inputs
 
 def build_instruction():
     instruction = '''You serve as a personalized news recommendation system'''

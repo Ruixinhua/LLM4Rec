@@ -4,10 +4,17 @@ import re
 import os
 from prompt import *
 
+template_dispatcher = {
+    'init': template_init,
+    'final': template_final,
+    '5074': template_best_5074,
+}
+
+
 function_dispatcher = {
-    '0': build_prompt_template0,
-    '1': build_prompt_template1,
-    '2': build_prompt_template2,
+    # '0': build_prompt_template0,
+    # '1': build_prompt_template1,
+    # '2': build_prompt_template2,
     '99': build_prompt_template99,
     '10': build_prompt_template10,
     '15': build_prompt_template15,
