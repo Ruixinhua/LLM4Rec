@@ -34,18 +34,19 @@ def build_instruction():
     return "You serve as a personalized news recommendation system."
 
 
-def request_llama(data, temp):
-    user_content = temp.replace("{{history}}", data["history"]).replace("{{candidate}}", data["candidate"])
+def request_llama(user_content, **kwargs):
     chat_completion = json.dumps({
         "model": "meta-llama/Llama-2-70b-chat-hf",
-        "messages": [{"role": "system", "content": build_instruction()}, {"role": "user", "content": user_content}],
-        "temperature": 0,
+        "messages": [
+            {"role": "system", "content": kwargs.get("system_instruction", build_instruction())},
+            {"role": "user", "content": user_content}
+        ],
+        "temperature": kwargs.get("temperature", 0),
     })
     req = urllib.request.Request(url, data=chat_completion.encode(), method='POST', headers=req_header)
 
     with urllib.request.urlopen(req) as response:
         body = json.loads(response.read())
-        print(body['choices'][0]['message']['content'])
         return body['choices'][0]['message']['content']
 
 
@@ -65,6 +66,26 @@ def request_gpt(messages, model="gpt-3.5-turbo", **model_params):
         return request_gpt(messages, model, **model_params)
 
 
+def run_llm(line, recommender_model, llm_params, system_instruction, template, caching, max_tokens, use_guidance):
+    full_prompt = Template(template).safe_substitute(
+        history=line["history"], candidate=line["candidate"], max_tokens=max_tokens
+    )
+    if "llama" in recommender_model.lower():
+        user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
+        output = request_llama(user_content, **llm_params)
+        ranks = extract_output(output, line["candidate"], match_pattern=True)
+        return output, ranks, full_prompt
+    if use_guidance:
+        model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True, caching=caching)
+        output = guidance(full_prompt, llm=model, silent=True)()["output"]
+    else:
+        user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
+        full_prompt = [{"role": "system", "content": system_instruction}, {"role": "user", "content": user_content}]
+        output = request_gpt(full_prompt, model=recommender_model, **llm_params)
+    ranks = extract_output(output, line["candidate"], match_pattern=True)
+    return output, ranks, full_prompt
+
+
 def run_recommender(prompt_template, **kwargs):
     data_group = kwargs.get("data_group", "sample100by_ratio")
     samples = kwargs.get("samples", pd.read_csv(f"valid/{data_group}.csv"))
@@ -77,13 +98,12 @@ def run_recommender(prompt_template, **kwargs):
     llm_seed = kwargs.get("llm_seed", 42)
     caching = kwargs.get("caching", True)
     openai.api_key = load_api_key()
-    model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True, caching=caching)
     system_instruction = kwargs.get("system_instruction", "You serve as a personalized news recommendation system.")
     llm_params = {
         "temperature": temperature, "max_tokens": max_tokens, "seed": llm_seed
     }
     template = Template(gpt_template).safe_substitute(
-        {"temperature": temperature, "prompt_temp": prompt_template, "max_tokens": max_tokens,
+        {"temperature": temperature, "prompt_temp": prompt_template,
          "system_instruction": system_instruction, "seed": llm_seed}
     )
     epoch = kwargs.get("epoch", None)
@@ -102,15 +122,17 @@ def run_recommender(prompt_template, **kwargs):
     in_order_ratio = 0
     for index in tqdm(samples.index, total=len(samples)):
         line = {col: samples.loc[index, col] for col in data_cols}
-        full_prompt = Template(template).safe_substitute(history=line["history"], candidate=line["candidate"])
-        if use_guidance:
-            line["output"] = guidance(full_prompt, llm=model, silent=True)()["output"]
-        else:
-            user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
-            full_prompt = [{"role": "system", "content": system_instruction}, {"role": "user", "content": user_content}]
-            line["output"] = request_gpt(full_prompt, model=recommender_model, **llm_params)
+        output, ranks, full_prompt = run_llm(
+            line, recommender_model, llm_params, system_instruction, template, caching, max_tokens, use_guidance
+        )
+        current_max_tokens = max_tokens
+        while ranks is False and current_max_tokens < 512:
+            current_max_tokens = current_max_tokens * 2
+            output, ranks, full_prompt = run_llm(line, recommender_model, llm_params, system_instruction, template,
+                                                 caching, current_max_tokens, use_guidance)
+        line["rank"] = ','.join(ranks)
         line["full_prompt"] = full_prompt
-        line["rank"] = ','.join(extract_output(line["output"], line["candidate"]))
+        line["output"] = output
         output_list, label_list = convert2list(line["rank"], line["label"], line["candidate"])
         in_order_ratio += 1 if is_descending(output_list[np.nonzero(output_list)[0]]) else 0
         line.update(evaluate_list(output_list, label_list, metric_funcs))

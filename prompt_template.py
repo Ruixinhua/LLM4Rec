@@ -58,7 +58,7 @@ ${candidate}
 - Rank candidate news based on the user's history news and start with the phrase in the format: "Ranked news: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>".
 - Focusing on the alignment of topics rather than the original order of 'Candidate News'.
 - The model must also summarize the user's interests and explain the recommendation results.
-- Output the ranked list first.
+- Output the ranked list first and then explain the results.
 """
 
 template_best_5191 = """Based on the user's news history, analyze and recommend candidate news articles that align with the user's interests. The recommendation should be made solely based on the semantic relevance of the candidate news to the user's interests, without being influenced by the order of appearance in the 'Candidate News' list.
@@ -193,7 +193,7 @@ ${candidate}
 
 # Output Format
 Summarize the user's interests and rank the candidate news according to their relevance to the user's interests start with the phrase in the format: "Candidate news ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>". Provide an explanation for the ranking and the relevance of each selected candidate news article to the user's interests.
-Output the ranked list first.
+Output the ranked list first and then explain the results.
 """
 template_best_5074 = """Based on the user's news history, analyze and recommend candidate news articles that align with the user's interests. The recommendation should be made solely based on the semantic relevance of the user's interests to the candidate news.
 

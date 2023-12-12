@@ -22,10 +22,10 @@ if __name__ == "__main__":
     temperature = args.get("temperature", 0)
     llm_seed = args.get("llm_seed", 42)
     suffix = f"template-{template_name}_seed-{llm_seed}_{variant_name}{args.get('suffix', '')}"
-    generated_data_root = f"generated_data/{model_name}/{data_root_dir}_{num}"
+    generated_data_root = f"generated_data/{data_root_dir}_{num}"
     os.makedirs(generated_data_root, exist_ok=True)
     score_root = f"result/{data_root_dir}_{num}"
-    generated_output_path = f"{generated_data_root}/{suffix}.csv"
+    generated_output_path = f"{generated_data_root}/{model_name}/{suffix}.csv"
     os.makedirs(score_root, exist_ok=True)
     score_path = f"{score_root}/{model_name}/{suffix}.csv"
     user_template = getattr(module_templates, f"template_{template_name}")
