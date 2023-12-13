@@ -1,0 +1,4 @@
+group_auc,mean_mrr,ndcg_5,ndcg_10,model,sample_num,in_order_ratio,max_tokens,temperature,data_group,template_name
+66.64,46.22,49.74,58.79,gpt-4,400,0.003,2048,0,sample400by_ratio,init
+66.03,45.04,47.75,57.89,gpt-4,400,0.018,100,0,sample400by_ratio,init
+67.26,46.34,49.74,58.9,gpt-4,400,0.0,2048,0.1,sample400by_ratio,init

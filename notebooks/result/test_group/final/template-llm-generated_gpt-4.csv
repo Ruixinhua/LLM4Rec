@@ -1,0 +1,4 @@
+group_auc,mean_mrr,ndcg_5,ndcg_10,model,sample_num,in_order_ratio,max_tokens,temperature,data_group,template_name,llm_seed
+68.69,47.31,50.86,59.67,gpt-4,400,0.015,50,0,sample400by_ratio,llm-generated,42
+67.99,47.07,50.63,59.48,gpt-4,400,0.015,50,0,sample400by_ratio,llm-generated,2020
+68.58,47.35,50.82,59.71,gpt-4,400,0.018,50,0,sample400by_ratio,llm-generated,2023

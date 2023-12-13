@@ -1,0 +1,4 @@
+group_auc,mean_mrr,ndcg_5,ndcg_10,model,sample_num,in_order_ratio,max_tokens,temperature,data_group,template_name
+62.11,39.19,42.95,53.4,gpt-3.5,400,0.077,2048,0,sample400by_ratio,llm-generated
+60.79,38.18,40.33,52.51,gpt-3.5,400,0.075,2048,0,sample400by_ratio,llm-generated
+60.81,37.44,40.9,52.0,gpt-3.5,400,0.068,2048,0,sample400by_ratio,llm-generated

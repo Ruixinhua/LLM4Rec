@@ -1,0 +1,10 @@
+group_auc,mean_mrr,ndcg_5,ndcg_10,model,sample_num,data_group,seed
+48.42,29.05,28.48,45.17,random,400,sample400by_ratio,2020
+50.42,29.97,29.74,45.96,random,400,sample400by_ratio,42
+53.83,31.87,33.19,47.54,random,400,sample400by_ratio,2023
+64.58,39.29,44.29,53.54,TopicPop,400,sample400by_ratio,2020
+64.64,39.31,44.4,53.56,TopicPop,400,sample400by_ratio,42
+64.69,39.44,44.49,53.66,TopicPop,400,sample400by_ratio,2023
+52.42,34.98,34.65,49.75,MostPop,400,sample400by_ratio,2020
+52.47,34.99,34.65,49.77,MostPop,400,sample400by_ratio,42
+52.53,35.0,34.75,49.78,MostPop,400,sample400by_ratio,2023
