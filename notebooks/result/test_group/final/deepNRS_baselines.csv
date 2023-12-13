@@ -1,0 +1,16 @@
+model,template_name,data_group,group_auc,mean_mrr,ndcg_5,ndcg_10,in_order_ratio
+LSTUR,baseline,sample400by_ratio,67.1389,43.4944,48.1684,56.7964,--
+LSTUR,baseline,sample400by_ratio,66.9167,43.6001,47.6505,56.8738,--
+LSTUR,baseline,sample400by_ratio,67.4444,44.1717,47.7019,57.3199,--
+NAML,baseline,sample400by_ratio,66.7778,43.5799,47.8442,56.8581,--
+NAML,baseline,sample400by_ratio,66.9167,44.664,48.5276,57.651,--
+NAML,baseline,sample400by_ratio,66.6667,43.8318,47.7323,57.0288,--
+NPA,baseline,sample400by_ratio,65.5833,43.591,46.7024,56.7925,--
+NPA,baseline,sample400by_ratio,64.5278,42.6336,45.8857,56.0267,--
+NPA,baseline,sample400by_ratio,66.4444,43.2591,47.0008,56.5864,--
+NRMS,baseline,sample400by_ratio,66.3333,43.2254,47.0939,56.5571,--
+NRMS,baseline,sample400by_ratio,66.0833,43.6119,46.5213,56.814,--
+NRMS,baseline,sample400by_ratio,66.3333,43.9589,46.9769,57.0819,--
+DKN,baseline,sample400by_ratio,66.4167,42.6349,46.4326,56.1289,--
+DKN,baseline,sample400by_ratio,66.7222,42.6918,46.8784,56.1655,--
+DKN,baseline,sample400by_ratio,65.6944,41.6035,45.9668,55.3383,--

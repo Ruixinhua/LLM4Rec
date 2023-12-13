@@ -35,13 +35,17 @@ def build_instruction():
 
 
 def request_llama(user_content, **kwargs):
+    url = "http://bendstar.com:8000/v1/chat/completions"
+    req_header = {
+        'Content-Type': 'application/json',
+    }
     chat_completion = json.dumps({
         "model": "meta-llama/Llama-2-70b-chat-hf",
         "messages": [
             {"role": "system", "content": kwargs.get("system_instruction", build_instruction())},
             {"role": "user", "content": user_content}
         ],
-        "temperature": kwargs.get("temperature", 0),
+        "temperature": kwargs.get("temperature", 0.1),
     })
     req = urllib.request.Request(url, data=chat_completion.encode(), method='POST', headers=req_header)
 
@@ -75,15 +79,16 @@ def run_llm(line, recommender_model, llm_params, system_instruction, template, c
         output = request_llama(user_content, **llm_params)
         ranks = extract_output(output, line["candidate"], match_pattern=True)
         return output, ranks, full_prompt
-    if use_guidance:
-        model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True, caching=caching)
-        output = guidance(full_prompt, llm=model, silent=True)()["output"]
     else:
-        user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
-        full_prompt = [{"role": "system", "content": system_instruction}, {"role": "user", "content": user_content}]
-        output = request_gpt(full_prompt, model=recommender_model, **llm_params)
-    ranks = extract_output(output, line["candidate"], match_pattern=True)
-    return output, ranks, full_prompt
+        if use_guidance:
+            model = guidance.llms.OpenAI(recommender_model, api_key=load_api_key(), chat_mode=True, caching=caching)
+            output = guidance(full_prompt, llm=model, silent=True)()["output"]
+        else:
+            user_content = re.search(r'\{\{#user~}}(.*?)\{\{~/user}}', full_prompt, re.DOTALL).group(1)
+            full_prompt = [{"role": "system", "content": system_instruction}, {"role": "user", "content": user_content}]
+            output = request_gpt(full_prompt, model=recommender_model, **llm_params)
+        ranks = extract_output(output, line["candidate"], match_pattern=True)
+        return output, ranks, full_prompt
 
 
 def run_recommender(prompt_template, **kwargs):
