@@ -47,7 +47,7 @@ def unique_in_order(iterable):
     return unique_list
 
 
-def extract_output(output, candidates, match_pattern=False):
+def extract_output(output, candidates=None, match_pattern=False):
     extracted_text = re.search(r"<START>(.+?)<END>", output)
     match = True if extracted_text else False
     # Check if the pattern was found and extract the group
