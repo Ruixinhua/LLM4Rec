@@ -34,7 +34,8 @@ if __name__ == "__main__":
     params = {
         "samples": samples, "recommender": model_name, "temperature": temperature, "llm_seed": llm_seed,
         "generated_output_path": generated_output_path, "score_path": score_path, "max_tokens": max_tokens,
-        "caching": caching, "use_guidance": args.get("use_guidance", True)
+        "caching": caching, "use_guidance": args.get("use_guidance", True), "use_hf": args.get("use_hf", False),
+        "system_instruction": args.get("system_instruction", "sys_instruction")
     }
     df = run_recommender(user_template, **params)
     df["template_name"] = template_name

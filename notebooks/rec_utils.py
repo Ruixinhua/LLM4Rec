@@ -14,13 +14,9 @@ import sys
 sys.path.append("../")
 from common import load_api_key
 from templates import gpt_template
+import templates
 from utils import convert2list, save2csv, cal_avg_scores, extract_output, evaluate_list
 from llm_utils import load_model_tokenizer, inference_llm_hf
-
-url = "http://bendstar.com:8000/v1/chat/completions"
-req_header = {
-    'Content-Type': 'application/json',
-}
 
 
 def is_descending(lst):
@@ -39,12 +35,14 @@ def request_llama(user_content, **kwargs):
     req_header = {
         'Content-Type': 'application/json',
     }
+    system_instruction = kwargs.get("system_instruction", build_instruction())
     chat_completion = json.dumps({
         "model": "meta-llama/Llama-2-70b-chat-hf",
         "messages": [
-            {"role": "system", "content": kwargs.get("system_instruction", build_instruction())},
+            {"role": "system", "content": kwargs.get("system_instruction", system_instruction)},
             {"role": "user", "content": user_content}
         ],
+        # "do_sample": kwargs.get("do_sample", False),
         "temperature": kwargs.get("temperature", 0.1),
     })
     req = urllib.request.Request(url, data=chat_completion.encode(), method='POST', headers=req_header)
@@ -75,37 +73,46 @@ def run_llm(model_name, llm_params, prompt_str, **kwargs):
     :param model_name: a string indicating the model name
     :param llm_params: a dict with keys: temperature, max_tokens, seed
     :param prompt_str: a string indicating the prompt string with filled placeholders
-    :param kwargs: a dict with keys: use_guidance, caching, system_instruction, candidate
+    :param kwargs: a dict with keys: use_guidance, caching, system_instruction, candidate, use_hf
     """
-    sys_instruct = kwargs.get("system_instruction", "You serve as a personalized news recommendation system.")
+    sys_instruct = kwargs.get("system_instruction", "sys_instruction")
+    sys_instruct = getattr(templates, sys_instruct) if hasattr(templates, sys_instruct) else sys_instruct
     candidate = kwargs.get("candidate", None)
-    if "llama" in model_name.lower():
-        use_hf = kwargs.get("use_hf", True)
-        if use_hf:
-            model, tokenizer = llm_params["model"], llm_params["tokenizer"]
-            params = {
-                "max_length": llm_params["max_length"], "max_new_tokens": llm_params["max_tokens"],
-                "do_sample": llm_params["do_sample"]
-            }
-            output = inference_llm_hf(model, tokenizer, prompt_str, **params)
-        else:
+    if kwargs.get("use_hf", False):
+        model, tokenizer = llm_params["model"], llm_params["tokenizer"]
+        params = {
+            "max_length": llm_params["max_length"], "max_new_tokens": llm_params["max_tokens"],
+            "do_sample": llm_params["do_sample"]
+        }
+        # if "mixtral" in model_name.lower():
+        #     full_prompt = ""
+        full_prompt = prompt_str
+        output = inference_llm_hf(model, tokenizer, full_prompt, **params)
+        ranks = extract_output(output, candidate, match_pattern=False)
+    else:
+        if "llama" in model_name.lower():
+            # from guidance import gen
             output = request_llama(prompt_str, system_instruction=sys_instruct, **llm_params)
-        ranks = extract_output(output, candidate, match_pattern=True)
-        return output, ranks, prompt_str
-    else:  # default for openai models family
-        caching = kwargs.get("caching", True)
-        full_prompt = Template(gpt_template).safe_substitute(
-            {"temperature": llm_params['temperature'], "prompt_temp": prompt_str, "system_instruction": sys_instruct,
-             "seed": llm_params['seed'], "max_tokens": llm_params['max_tokens']}
-        )
-        if kwargs.get("use_guidance", True):
-            model = guidance.llms.OpenAI(model_name, api_key=load_api_key(), chat_mode=True, caching=caching)
-            output = guidance(full_prompt, llm=model, silent=True)()["output"]
-        else:
-            full_prompt = [{"role": "system", "content": sys_instruct}, {"role": "user", "content": prompt_str}]
-            output = request_gpt(full_prompt, model=model_name, **llm_params)
-        ranks = extract_output(output, candidate, match_pattern=True)
-        return output, ranks, full_prompt
+            # full_prompt = Template(llama_template).safe_substitute(
+            #     {"prompt_temp": prompt_str, "system_instruction": sys_instruct, "max_tokens": llm_params['max_tokens']}
+            # )
+            # output = guidance(full_prompt, silent=True)()["output"]
+            full_prompt = prompt_str
+            ranks = extract_output(output, candidate, match_pattern=False)
+        else:  # default for openai models family
+            caching = kwargs.get("caching", True)
+            full_prompt = Template(gpt_template).safe_substitute(
+                {"temperature": llm_params['temperature'], "prompt_temp": prompt_str, "seed": llm_params['seed'],
+                 "system_instruction": sys_instruct, "max_tokens": llm_params['max_tokens']}
+            )
+            if kwargs.get("use_guidance", True):
+                model = guidance.llms.OpenAI(model_name, api_key=load_api_key(), chat_mode=True, caching=caching)
+                output = guidance(full_prompt, llm=model, silent=True)()["output"]
+            else:
+                full_prompt = [{"role": "system", "content": sys_instruct}, {"role": "user", "content": prompt_str}]
+                output = request_gpt(full_prompt, model=model_name, **llm_params)
+            ranks = extract_output(output, candidate, match_pattern=True)
+    return output, ranks, full_prompt
 
 
 def run_recommender(prompt_template, **kwargs):
@@ -124,16 +131,23 @@ def run_recommender(prompt_template, **kwargs):
     llm_seed = kwargs.get("llm_seed", 42)
     caching = kwargs.get("caching", True)
     openai.api_key = load_api_key()
-    system_instruction = kwargs.get("system_instruction", "You serve as a personalized news recommendation system.")
+    sys_instruct = kwargs.get("system_instruction", "sys_instruction")
+    sys_instruct = getattr(templates, sys_instruct) if hasattr(templates, sys_instruct) else sys_instruct
     llm_params = {
         "temperature": temperature, "max_tokens": max_tokens, "seed": llm_seed
     }
-    if "hf" in recommender_model.lower() or kwargs.get("use_hf"):
+    use_hf = kwargs.get("use_hf", False)
+    use_guidance = kwargs.get("use_guidance", True)
+    if use_hf:
         model, tokenizer = load_model_tokenizer(recommender_model)
         llm_params.update({
             "model": model, "tokenizer": tokenizer, "max_length": kwargs.get("max_length", 4096),
             "do_sample": kwargs.get("do_sample", False)
         })
+    if "llama" in recommender_model.lower() and use_guidance:
+        # from guidance import models
+        # llm_params.update({"model": models.Transformers(recommender_model)})
+        guidance.llm = guidance.llms.Transformers(recommender_model)
     epoch = kwargs.get("epoch", None)
     generated_output_path = f"generated_data/prompt_tuning/{recommender_model}/"
     if epoch is not None:
@@ -143,7 +157,6 @@ def run_recommender(prompt_template, **kwargs):
     generated_output_path = kwargs.get("generated_output_path", generated_output_path)
     score_path = f"result/prompt_tuning/{recommender_model}/epoch_{epoch}_{llm_seed}.csv"
     score_path = kwargs.get("score_path", score_path)
-    use_guidance = kwargs.get("use_guidance", True)
     os.makedirs(os.path.dirname(generated_output_path), exist_ok=True)
     os.makedirs(os.path.dirname(score_path), exist_ok=True)
     results = []
@@ -152,14 +165,17 @@ def run_recommender(prompt_template, **kwargs):
         line = {col: samples.loc[index, col] for col in data_cols}
         prompt_str = Template(prompt_template).safe_substitute(history=line["history"], candidate=line["candidate"])
         run_kwargs = {
-            "use_guidance": use_guidance, "caching": caching, "system_instruction": system_instruction,
-            "candidate": line["candidate"]
+            "use_guidance": use_guidance, "caching": caching, "system_instruction": sys_instruct,
+            "candidate": line["candidate"], "use_hf": use_hf
         }
         output, ranks, full_prompt = run_llm(recommender_model, llm_params, prompt_str, **run_kwargs)
         current_max_tokens = max_tokens
         while ranks is False and current_max_tokens < max_output_tokens:
             current_max_tokens = current_max_tokens * 2
+            llm_params["max_tokens"] = current_max_tokens
             output, ranks, full_prompt = run_llm(recommender_model, llm_params, prompt_str, **run_kwargs)
+        if ranks is False:
+            continue
         line["rank"] = ','.join(ranks)
         line["full_prompt"] = full_prompt
         line["output"] = output

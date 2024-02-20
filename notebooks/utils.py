@@ -47,22 +47,39 @@ def unique_in_order(iterable):
     return unique_list
 
 
+def search_patten(text, patten):
+    extracted_text = re.findall(patten, text, re.DOTALL)
+    for text in extracted_text:
+        ranks = unique_in_order(re.findall(r"C\d+", text))
+        if len(ranks):
+            return ranks
+    return False
+
+
 def extract_output(output, candidates=None, match_pattern=False):
-    extracted_text = re.search(r"<START>(.+?)<END>", output)
-    match = True if extracted_text else False
-    # Check if the pattern was found and extract the group
-    output = extracted_text.group(1) if extracted_text else output
-    extracted_text = re.search(r'Ranked news: ([^\n]+)', output)
-    match = match or (True if extracted_text else False)
-    ranks = unique_in_order(re.findall(r"C\d+", output))
+    pattens = [
+        r"<START>(.+?)<END>",
+        r"Ranked news: ([^\n]+)",
+        r"Candidate news ranked solely by relevance to the user's interests: ([^\n]+)"
+    ]
+    ranks = False
+    for patten in pattens:
+        # Check if the pattern was found in the previous patten
+        ranks = search_patten(output, patten)
+        if ranks:
+            break
     if match_pattern:
-        if not match:
+        if not ranks or len(ranks) == 0:
             return False
         else:
             return ranks
     else:
-        if len(ranks) == 0:
-            return extract_raw_output(output, candidates)
+        if not ranks or len(ranks) == 0:
+            ranks = extract_raw_output(output, candidates)
+            if len(ranks) == 0:
+                return False
+            else:
+                return ranks
         else:
             return ranks
 
@@ -70,14 +87,18 @@ def extract_output(output, candidates=None, match_pattern=False):
 def extract_raw_output(out, cans):
     ranks = []
     filter_index = 0
-    for match in re.finditer(re.escape("The recommended news headlines by rank are:"), out):
-        filter_index = match.start()
+    for match in re.finditer(re.escape("Ranked news:"), out):
+        filter_index = match.end()
     out = out[filter_index:]
+    out = " ".join(out.split())
     for i, c in enumerate(cans.split('\n')):
-        c = re.sub(r"C\d+: ", '', c)
+        if not re.search(r"C\d+: ", c):
+            continue
+        c = re.sub(r"C\d+: ", '', c.strip())
+        c = " ".join(c.split())
         start = len(out)
-        for match in re.finditer(re.escape(c), out):
-            start = match.start()
+        for match in re.finditer(re.escape(c), out.strip()):
+            start = min(start, match.start())
         ranks.append(start)
     index_sorted = sorted(range(len(ranks)), key=lambda k: ranks[k])
     return [f"C{i+1}" for i in index_sorted][:10]

@@ -171,7 +171,6 @@ ${candidate}
 
 # Output Format
 Summarize the user's interests and rank the candidate news according to their relevance to the user's interests in the format: "Candidate news ranked solely by relevance to the user's interests: <START>C#, C#, C#, C#, C#, C#, C#, C#, C#, C#<END>". Provide an explanation for the ranking and the relevance of each selected candidate news article to the user's interests.
-
 """
 template_best_5037_4 = """
 Based on the user's news history, recommend candidate news articles that align with the user's interests.
