@@ -27,7 +27,9 @@ def inference_llm_hf(model, tokenizer, full_prompt, **kwargs):
     torch.cuda.empty_cache()
     inputs = tokenizer(full_prompt, return_tensors="pt")
     input_ids = inputs.input_ids.to(model.device)
-    while True:
+    try_num = kwargs.get("try_num", 5)
+    num = 0
+    while num < try_num:
         try:
             generate_ids = model.generate(
                 input_ids,
@@ -43,4 +45,5 @@ def inference_llm_hf(model, tokenizer, full_prompt, **kwargs):
             return output
         except Exception as e:
             print(e)
+            num += 1
             torch.cuda.empty_cache()
